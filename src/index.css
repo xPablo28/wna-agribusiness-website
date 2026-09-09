@@ -1,0 +1,225 @@
+@import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Brand system extracted from the official WNA logo:
+     deep forest green (WNA letters / WASTE NOT), vibrant leaf green,
+     mango orange (recycle mark / Africa sun), earth brown (letter A). */
+  --color-ink: #060a07;
+  --color-coal: #0b100c;
+  --color-pine: #0b1e13;
+  --color-moss: #14301d;
+  --color-wna: #0e6b34;
+  --color-wna-deep: #0c3b1e;
+  --color-leaf: #6fbe44;
+  --color-mango: #f2a41c;
+  --color-ember: #e4570f;
+  --color-earth: #8b5a24;
+  --color-sand: #eae1cb;
+  --color-paper: #f5f0e3;
+  --color-cream: #fbf8f0;
+  --color-fog: #a3b0a4;
+  --color-smoke: #5c665d;
+
+  --animate-marquee: marquee 36s linear infinite;
+  --animate-marquee-slow: marquee 60s linear infinite;
+  --animate-flow: flow 2.2s linear infinite;
+  --animate-spin-slow: spinSlow 26s linear infinite;
+  --animate-pulse-ring: pulseRing 2.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  --animate-logo-float: logoFloat 6s ease-in-out infinite;
+  --animate-logo-sheen: logoSheen 6s ease-in-out infinite;
+
+  @keyframes spinSlow {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes flow {
+    to { stroke-dashoffset: -28; }
+  }
+  @keyframes pulseRing {
+    0% { transform: scale(0.6); opacity: 0.9; }
+    100% { transform: scale(1.9); opacity: 0; }
+  }
+  @keyframes logoFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-9px); }
+  }
+  @keyframes logoSheen {
+    0% { transform: translateX(-140%) skewX(-18deg); opacity: 0; }
+    12% { opacity: 1; }
+    52% { transform: translateX(260%) skewX(-18deg); opacity: 1; }
+    62%, 100% { transform: translateX(260%) skewX(-18deg); opacity: 0; }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  background: #060a07;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-mango);
+  color: #060a07;
+}
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #060a07; }
+::-webkit-scrollbar-thumb { background: #2a3a2e; border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-wna); }
+
+/* ---------- Display type ---------- */
+.display {
+  font-family: var(--font-display);
+  font-stretch: 118%;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.94;
+  font-weight: 800;
+}
+.display-tight {
+  font-family: var(--font-display);
+  font-stretch: 110%;
+  text-transform: uppercase;
+  letter-spacing: -0.015em;
+  line-height: 1;
+  font-weight: 750;
+}
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.outline-text {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(251, 248, 240, 0.55);
+}
+.outline-dark {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(6, 10, 7, 0.5);
+}
+
+/* ---------- Surfaces ---------- */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.09;
+  z-index: 5;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.vignette::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  background: radial-gradient(120% 90% at 50% 45%, transparent 40%, rgba(6, 10, 7, 0.75) 100%);
+}
+.grid-dark {
+  background-image:
+    linear-gradient(rgba(251, 248, 240, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(251, 248, 240, 0.045) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+.grid-light {
+  background-image:
+    linear-gradient(rgba(6, 10, 7, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(6, 10, 7, 0.055) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+.glass-dark {
+  background: rgba(11, 16, 12, 0.62);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+.glass-light {
+  background: rgba(251, 248, 240, 0.72);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+.mask-fade-x {
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+.mask-fade-b {
+  mask-image: linear-gradient(180deg, black 55%, transparent 100%);
+}
+
+.scan-frame {
+  position: relative;
+}
+.scan-frame::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-mango), transparent);
+  animation: scanY 3.4s ease-in-out infinite;
+  box-shadow: 0 0 24px 2px rgba(242, 164, 28, 0.55);
+}
+@keyframes scanY {
+  0%, 100% { top: 6%; opacity: 0; }
+  12% { opacity: 1; }
+  50% { top: 94%; opacity: 1; }
+  88% { opacity: 1; }
+  100% { top: 6%; opacity: 0; }
+}
+
+.tick-line {
+  background-image: repeating-linear-gradient(90deg, currentColor 0 6px, transparent 6px 14px);
+  height: 1px;
+}
+
+/* ---------- Official logo presentation ----------
+   The artwork file itself is never altered. The plate, sheen and
+   glow below are presentation + lighting only. */
+.logo-plate {
+  position: relative;
+  isolation: isolate;
+}
+.logo-sheen::before {
+  content: "";
+  position: absolute;
+  top: -25%;
+  bottom: -25%;
+  left: 0;
+  width: 42%;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(242, 164, 28, 0.14),
+    rgba(255, 255, 255, 0.38),
+    rgba(242, 164, 28, 0.14),
+    transparent
+  );
+  animation: logoSheen 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .scan-frame::after { animation: none; opacity: 0; }
+  .logo-sheen::before { animation: none; opacity: 0; }
+}
