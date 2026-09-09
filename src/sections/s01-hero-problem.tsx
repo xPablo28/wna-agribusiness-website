@@ -1,68 +1,51 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { IMG } from "../data";
+import { COMPANY, IMG } from "../data";
 import { EASE, GhostCta, PrimaryCta, Reveal, Tag, Words } from "../components/ui";
 
-/* ============================== HERO ============================== */
+/* ============================== 01 · HERO ==============================
+   First screen: the problem, stated simply. Visual language:
+   FARM / HARVEST → SURPLUS → PROCESSING → NEW VALUE.                      */
 
-const HERO_PHASES = [
-  { k: "ABUNDANCE", d: "Harvest arrives all at once." },
+const FLOW_RAIL = [
+  { k: "FARM / HARVEST", d: "Seasons bring abundance." },
   { k: "SURPLUS", d: "More than the market absorbs." },
-  { k: "VALUE RECOVERY", d: "WNA redirects what remains." },
+  { k: "PROCESSING", d: "Surplus enters a new pathway." },
+  { k: "NEW VALUE", d: "Products, ingredients, inputs." },
 ];
 
-export function Hero({ ready }: { ready: boolean }) {
+export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.22]);
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "-60%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "-40%"]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
   const railProgress = useTransform(scrollYProgress, [0, 0.9], ["0%", "100%"]);
 
   const [phase, setPhase] = useState(0);
   useEffect(() => {
-    if (!ready) return;
-    const t = setInterval(() => setPhase((p) => (p + 1) % 3), 2600);
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
+    const t = setInterval(() => setPhase((p) => (p + 1) % FLOW_RAIL.length), 2600);
     return () => clearInterval(t);
-  }, [ready]);
+  }, []);
 
   return (
-    <section ref={ref} id="top" className="grain vignette relative flex min-h-[108svh] flex-col overflow-hidden">
+    <section ref={ref} id="top" aria-label="Introduction" className="grain vignette relative flex min-h-[100svh] flex-col overflow-hidden">
       {/* Backdrop */}
-      <motion.div style={{ scale: bgScale, y: bgY }} className="absolute inset-0">
+      <motion.div style={{ scale: bgScale, y: bgY }} className="absolute inset-0" aria-hidden>
         <motion.img
           src={IMG.ghanaHarvest}
-          alt="Abundant Ghanaian harvest of mango, pineapple, plantain, yam, cassava and tomatoes representing surplus with recoverable value"
+          alt=""
           initial={{ scale: 1.15, opacity: 0 }}
-          animate={ready ? { scale: 1, opacity: 1 } : {}}
-          transition={{ duration: 2.2, ease: EASE }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.8, ease: EASE }}
           className="h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-ink/80 via-ink/45 to-ink" />
         <div className="absolute inset-0 bg-gradient-to-r from-ink/70 via-transparent to-ink/40" />
-      </motion.div>
-
-      {/* Analysis overlay frame */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={ready ? { opacity: 1 } : {}}
-        transition={{ delay: 1.6, duration: 1.2 }}
-        className="pointer-events-none absolute inset-0 z-[6] hidden lg:block"
-      >
-        <div className="scan-frame absolute top-[16%] right-[7%] h-[46%] w-[26%] rounded-sm border border-mango/25">
-          <div className="absolute -top-7 left-0 flex items-center gap-2 font-mono text-[10px] tracking-[0.2em] text-mango">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-mango" />
-            ANALYZING BATCH GH-042
-          </div>
-          <div className="absolute -bottom-7 left-0 font-mono text-[10px] tracking-[0.2em] text-cream/60">
-            MANGO · PLANTAIN · CASSAVA — ORIGIN: GHANA
-          </div>
-          {["top-0 left-0 border-t-2 border-l-2", "top-0 right-0 border-t-2 border-r-2", "bottom-0 left-0 border-b-2 border-l-2", "bottom-0 right-0 border-b-2 border-r-2"].map((c) => (
-            <span key={c} className={`absolute h-6 w-6 border-mango ${c}`} />
-          ))}
-        </div>
       </motion.div>
 
       {/* Content */}
@@ -72,61 +55,66 @@ export function Hero({ ready }: { ready: boolean }) {
       >
         <motion.p
           initial={{ opacity: 0, y: 18 }}
-          animate={ready ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.35, duration: 0.9, ease: EASE }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25, duration: 0.9, ease: EASE }}
           className="eyebrow text-mango"
         >
-          Waste Not Agro Solutions — Ghana
+          {COMPANY.fullName} — {COMPANY.origin}
         </motion.p>
 
-        <h1 className="display mt-6 max-w-6xl text-[clamp(2.7rem,8.6vw,7.6rem)] text-cream">
-          {ready && (
-            <>
-              <Words text="Agricultural surplus" delay={0.45} />
-              <br />
-              <Words text="still has value." delay={0.9} accentWords={["value."]} />
-            </>
-          )}
+        <h1 className="display mt-6 max-w-5xl text-[clamp(2.1rem,5.6vw,5rem)] text-cream">
+          <Words text="A harvest can be a success story." delay={0.35} />
+          <br />
+          <span className="text-cream/45">
+            <Words text="Until the market says" delay={0.9} />
+          </span>{" "}
+          <Words text="otherwise." delay={1.2} accentWords={["otherwise."]} />
         </h1>
 
         <motion.div
           initial={{ opacity: 0 }}
-          animate={ready ? { opacity: 1 } : {}}
-          transition={{ delay: 1.5, duration: 1 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.7, duration: 1 }}
         >
-          <p className="display-tight mt-6 text-[clamp(1rem,2.6vw,1.7rem)] text-cream/85">
-            We find its <span className="text-mango">next best use.</span>
+          <p className="display-tight mt-5 text-[clamp(1.05rem,2.4vw,1.5rem)] text-cream/85">
+            Agricultural surplus still has value.{" "}
+            <span className="text-mango">We find its next best use.</span>
           </p>
-          <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-cream/65 sm:text-base">
-            WNA identifies, grades, processes and redirects agricultural surplus
-            to its highest viable use.
-          </p>
-          <p className="mt-5 font-mono text-[10.5px] tracking-[0.22em] text-cream/50 uppercase">
-            Mango today <span className="text-mango">·</span> Pineapple · Cassava · Plantain · Maize · Vegetables in pipeline
+          <p className="mt-4 max-w-xl text-[14.5px] leading-relaxed text-cream/60 sm:text-[15.5px]">
+            WNA is a Ghanaian agricultural-surplus company: grade what remains,
+            match it to a productive pathway, utilize what the market left behind.
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-4">
-            <PrimaryCta href="#how">See how it works</PrimaryCta>
-            <GhostCta href="#partners">Work with WNA</GhostCta>
+            <PrimaryCta href="#partners">Partner With WNA</PrimaryCta>
+            <GhostCta href="#approach">Explore Our Approach</GhostCta>
           </div>
         </motion.div>
 
-        {/* Abundance → Surplus → Value rail */}
+        {/* Farm → Surplus → Processing → New value rail */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
-          animate={ready ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 1.9, duration: 1, ease: EASE }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2.1, duration: 1, ease: EASE }}
           className="mt-14 border-t border-cream/15 pt-6"
         >
           <div className="relative mb-5 h-px w-full bg-cream/12">
             <motion.div className="absolute inset-y-0 left-0 bg-mango" style={{ width: railProgress }} />
           </div>
-          <div className="grid grid-cols-3 gap-4">
-            {HERO_PHASES.map((p, i) => (
-              <div key={p.k} className={`transition-opacity duration-700 ${phase === i ? "opacity-100" : "opacity-40"}`}>
-                <p className="font-mono text-[10px] tracking-[0.24em] text-mango sm:text-[11px]">
-                  0{i + 1} — {p.k}
-                </p>
-                <p className="mt-1.5 hidden text-[13px] text-cream/60 sm:block">{p.d}</p>
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+            {FLOW_RAIL.map((p, i) => (
+              <div
+                key={p.k}
+                className={`flex items-center gap-3 transition-opacity duration-700 ${phase === i ? "opacity-100" : "opacity-40"}`}
+              >
+                <span className="hidden font-mono text-[10px] text-mango/70 md:inline">
+                  {i < FLOW_RAIL.length - 1 ? "↓" : "·"}
+                </span>
+                <div>
+                  <p className="font-mono text-[10px] tracking-[0.24em] text-mango sm:text-[11px]">
+                    0{i + 1} — {p.k}
+                  </p>
+                  <p className="mt-1.5 hidden text-[13px] text-cream/60 sm:block">{p.d}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -136,7 +124,7 @@ export function Hero({ ready }: { ready: boolean }) {
       <motion.a
         href="#problem"
         initial={{ opacity: 0 }}
-        animate={ready ? { opacity: 1 } : {}}
+        animate={{ opacity: 1 }}
         transition={{ delay: 2.4, duration: 1 }}
         className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-cream/50 transition-colors hover:text-mango md:flex"
         aria-label="Scroll to the problem"
@@ -150,28 +138,38 @@ export function Hero({ ready }: { ready: boolean }) {
   );
 }
 
-/* ============================== 02 · PROBLEM ============================== */
+/* ============================== 02 · THE PROBLEM ==============================
+   "When abundance becomes loss." — the failure happens AFTER the harvest.  */
 
 const STAGES = [
   {
     k: "PRODUCE",
     img: IMG.harvestWoman,
-    alt: "Harvest season on a Ghanaian farm",
+    alt: "Representative image — harvest season on a farm",
     d: "Full harvest. Full potential. Every basket picked with a destination in mind.",
   },
   {
     k: "SURPLUS",
     img: IMG.tomatoes,
-    alt: "Fresh tomatoes piled high at a West African market",
+    alt: "Representative image — produce piled high at a market as demand lags",
     d: "Wrong time. Wrong condition. Wrong market. From farm gate to market stall, timing decides everything.",
   },
   {
     k: "VALUE AT RISK",
     img: IMG.peppers,
-    alt: "Peppers sorted at a West African market as value ticks away",
+    alt: "Representative image — produce sorted at a market while value ticks away",
     d: "Each day unmanaged, recoverable value quietly disappears.",
     risk: true,
   },
+];
+
+const CAUSES = [
+  { k: "WEAK MARKET DEMAND", d: "Buyers aren't there when the crop arrives." },
+  { k: "SEASONAL OVERSUPPLY", d: "The same harvest lands everywhere at once." },
+  { k: "QUALITY VARIATIONS", d: "Not every piece fits the fresh export grade." },
+  { k: "LIMITED PROCESSING CAPACITY", d: "Not enough places to convert volume quickly." },
+  { k: "LOGISTICS CHALLENGES", d: "Distance, cold chain and handling eat the margin." },
+  { k: "LACK OF SUITABLE BUYERS", d: "No organized path to the next right destination." },
 ];
 
 export function Problem() {
@@ -180,27 +178,30 @@ export function Problem() {
   const lineW = useTransform(scrollYProgress, [0.1, 0.7], ["0%", "100%"]);
 
   return (
-    <section ref={ref} id="problem" className="relative overflow-hidden bg-ink py-28 sm:py-40">
-      <div className="grid-dark pointer-events-none absolute inset-0 opacity-60" />
+    <section ref={ref} id="problem" aria-labelledby="problem-title" className="relative overflow-hidden bg-ink py-28 sm:py-40">
+      <div className="grid-dark pointer-events-none absolute inset-0 opacity-60" aria-hidden />
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
         <Tag index="02" label="The problem" />
 
-        <h2 className="display mt-8 max-w-5xl text-[clamp(2rem,5.6vw,4.6rem)] text-cream">
-          <Words text="Not everything that leaves the food chain" />
+        <h2 id="problem-title" className="display mt-8 max-w-5xl text-[clamp(2.3rem,6.4vw,5.4rem)] text-cream">
+          <Words text="When abundance" />
           <br />
-          <Words text="has lost its value." delay={0.35} accentWords={["value."]} />
+          <Words text="becomes" delay={0.25} />{" "}
+          <Words text="loss." delay={0.45} accentWords={["loss."]} />
         </h2>
+
         <Reveal delay={0.2}>
           <p className="mt-7 max-w-2xl text-[15.5px] leading-relaxed text-cream/60 sm:text-lg">
-            Agricultural produce can become surplus when it arrives at the wrong
-            time, in the wrong condition, in the wrong market — or without the
-            right destination.
+            Farmers can grow valuable crops — and still lose on the harvest.
+            When supply arrives faster than the market can absorb it, good
+            produce loses its commercial value. <span className="text-cream">The problem
+            is not always production. Often it is what happens after harvest.</span>
           </p>
         </Reveal>
 
         {/* Transformation */}
         <div className="relative mt-16 sm:mt-24">
-          <div className="absolute top-1/2 right-0 left-0 hidden h-px bg-cream/10 lg:block">
+          <div className="absolute top-1/2 right-0 left-0 hidden h-px bg-cream/10 lg:block" aria-hidden>
             <motion.div className="h-full origin-left bg-gradient-to-r from-leaf via-mango to-ember" style={{ scaleX: lineW, width: "100%" }} />
           </div>
           <div className="grid gap-10 lg:grid-cols-3 lg:gap-8">
@@ -220,7 +221,7 @@ export function Problem() {
                     loading="lazy"
                     className={`aspect-[4/3] w-full object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-105 ${s.risk ? "saturate-[.55]" : ""}`}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/10 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/10 to-transparent" aria-hidden />
                   <span className="absolute top-4 left-4 font-mono text-[11px] tracking-[0.25em] text-cream/80">
                     0{i + 1}
                   </span>
@@ -235,10 +236,33 @@ export function Problem() {
                 </div>
                 <p className="mt-4 max-w-sm text-[14px] leading-relaxed text-cream/55">{s.d}</p>
                 {i < 2 && (
-                  <span className="absolute top-[38%] -right-5 z-10 hidden h-10 w-10 items-center justify-center rounded-full border border-cream/15 bg-ink text-mango lg:flex">
+                  <span className="absolute top-[38%] -right-5 z-10 hidden h-10 w-10 items-center justify-center rounded-full border border-cream/15 bg-ink text-mango lg:flex" aria-hidden>
                     ↓
                   </span>
                 )}
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Why surplus happens */}
+        <div className="mt-20 sm:mt-28">
+          <Reveal>
+            <p className="eyebrow text-cream/45">Why surplus happens — even after a great harvest</p>
+          </Reveal>
+          <div className="mt-8 grid gap-px overflow-hidden rounded-sm border border-cream/10 bg-cream/10 sm:grid-cols-2 lg:grid-cols-3">
+            {CAUSES.map((c, i) => (
+              <motion.div
+                key={c.k}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.6, ease: EASE, delay: i * 0.06 }}
+                className="bg-ink p-6 sm:p-7"
+              >
+                <p className="font-mono text-[10px] tracking-[0.22em] text-mango/80">0{i + 1}</p>
+                <p className="display-tight mt-3 text-lg text-cream">{c.k}</p>
+                <p className="mt-2 text-[13.5px] leading-relaxed text-cream/55">{c.d}</p>
               </motion.div>
             ))}
           </div>

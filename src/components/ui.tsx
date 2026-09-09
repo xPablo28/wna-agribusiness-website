@@ -130,7 +130,7 @@ export function StatusBadge({ status, dark = false }: { status: Status; dark?: b
 
 export function PrimaryCta({
   children,
-  href = "#how",
+  href = "#approach",
   className,
 }: {
   children: ReactNode;

@@ -1,12 +1,13 @@
 {
-  "name": "react-vite-tailwind",
+  "name": "wna-agribusiness-website",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "clsx": "2.1.1",
@@ -26,5 +27,6 @@
     "typescript": "5.9.3",
     "vite": "7.3.2",
     "vite-plugin-singlefile": "2.3.0"
-  }
+  },
+  "description": "WNA — Waste Not Agro Solutions: corporate website for a Ghanaian agricultural-surplus business."
 }

@@ -1,7 +1,7 @@
 import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import { ArrowUpRight, Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
-import { NAV_LINKS } from "../data";
+import { useEffect, useRef, useState } from "react";
+import { CTA_LABEL, NAV_LINKS } from "../data";
 import { cn } from "../utils/cn";
 import { WnaLogo } from "./Logo";
 import { EASE } from "./ui";
@@ -9,6 +9,7 @@ import { EASE } from "./ui";
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const closeRef = useRef<HTMLButtonElement>(null);
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 28 });
 
@@ -19,16 +20,32 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  /* Lock page scroll while the mobile menu is open. */
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [open ]);
+  }, [open]);
+
+  /* Close on Escape and move focus into the dialog-like panel. */
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    const t = setTimeout(() => closeRef.current?.focus(), 60);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      clearTimeout(t);
+    };
+  }, [open]);
 
   return (
     <>
       <motion.div
+        aria-hidden
         className="fixed inset-x-0 top-0 z-[60] h-[2px] origin-left bg-mango"
         style={{ scaleX: progress }}
       />
@@ -41,8 +58,8 @@ export function Nav() {
         <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 sm:px-8">
           <a
             href="#top"
-            aria-label="WNA home"
-            className="transition-transform duration-300 hover:scale-[1.04]"
+            aria-label="WNA — Waste Not Agro Solutions, back to top"
+            className="rounded-lg transition-transform duration-300 hover:scale-[1.04]"
           >
             <WnaLogo
               eager
@@ -51,7 +68,7 @@ export function Nav() {
             />
           </a>
 
-          <nav className="hidden items-center gap-8 lg:flex">
+          <nav aria-label="Primary" className="hidden items-center gap-8 lg:flex">
             {NAV_LINKS.map((l) => (
               <a
                 key={l.href}
@@ -69,13 +86,15 @@ export function Nav() {
               href="#partners"
               className="group hidden items-center gap-2 rounded-full bg-cream px-5 py-2.5 text-[12px] font-semibold tracking-[0.12em] text-ink uppercase transition-colors duration-300 hover:bg-mango sm:inline-flex"
             >
-              Work with WNA
+              {CTA_LABEL}
               <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
             <button
               type="button"
               onClick={() => setOpen(true)}
               aria-label="Open menu"
+              aria-expanded={open}
+              aria-controls="mobile-menu"
               className="grid h-11 w-11 cursor-pointer place-items-center rounded-full border border-cream/20 text-cream transition-colors hover:border-mango hover:text-mango lg:hidden"
             >
               <Menu className="h-5 w-5" />
@@ -87,6 +106,10 @@ export function Nav() {
       <AnimatePresence>
         {open && (
           <motion.div
+            id="mobile-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site menu"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -96,6 +119,7 @@ export function Nav() {
             <div className="flex h-[72px] items-center justify-between px-5 sm:px-8">
               <WnaLogo variant="mark" />
               <button
+                ref={closeRef}
                 type="button"
                 onClick={() => setOpen(false)}
                 aria-label="Close menu"
@@ -104,7 +128,7 @@ export function Nav() {
                 <X className="h-5 w-5" />
               </button>
             </div>
-            <nav className="flex flex-1 flex-col justify-center gap-1 px-8">
+            <nav aria-label="Mobile" className="flex flex-1 flex-col justify-center gap-1 overflow-y-auto px-8 py-6">
               {NAV_LINKS.map((l, i) => (
                 <motion.a
                   key={l.href}
@@ -129,7 +153,7 @@ export function Nav() {
                 transition={{ delay: 0.5, duration: 0.6, ease: EASE }}
                 className="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-mango px-7 py-4 text-[13px] font-semibold tracking-[0.14em] text-ink uppercase"
               >
-                Work with WNA <ArrowUpRight className="h-4 w-4" />
+                {CTA_LABEL} <ArrowUpRight className="h-4 w-4" />
               </motion.a>
             </nav>
             <p className="px-8 pb-8 font-mono text-[10px] tracking-[0.25em] text-cream/35 uppercase">

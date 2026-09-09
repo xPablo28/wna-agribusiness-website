@@ -33,7 +33,7 @@ export function Vision() {
     <section id="vision" className="relative bg-ink">
       <div className="mx-auto max-w-[1440px] px-5 pt-28 sm:px-8 sm:pt-40">
         <div className="flex flex-wrap items-end justify-between gap-6">
-          <Tag index="09" label="The long-term vision" />
+          <Tag index="12" label="The long-term vision" />
           <StatusBadge status="LONG-TERM VISION" />
         </div>
         <h2 className="display mt-8 max-w-6xl text-[clamp(2.2rem,6.4vw,5.6rem)] text-cream">
@@ -198,7 +198,7 @@ export function Intelligence() {
     <section className="relative overflow-hidden border-t border-cream/10 bg-coal py-28 sm:py-40">
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
         <div className="flex flex-wrap items-end justify-between gap-6">
-          <Tag index="10" label="Data / Intelligence" />
+          <Tag index="13" label="Data / Intelligence" />
           <StatusBadge status="LONG-TERM VISION" />
         </div>
         <h2 className="display mt-8 max-w-5xl text-[clamp(2rem,5.6vw,4.8rem)] text-cream">

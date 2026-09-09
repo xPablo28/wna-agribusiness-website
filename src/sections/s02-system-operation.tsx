@@ -1,33 +1,78 @@
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { useRef, useState } from "react";
-import { IMG } from "../data";
+import { BROADER_OPPORTUNITY, IMG } from "../data";
 import { EASE, Reveal, StatusBadge, Tag, Words } from "../components/ui";
 import { cn } from "../utils/cn";
 
-/* ============================== 03 · WHAT WNA DOES ============================== */
+/* ============================== 03 · THE BIG QUESTION ==============================
+   A single line, held long enough to change the conversation.               */
+
+export function BigQuestion() {
+  return (
+    <section aria-labelledby="question-title" className="grain relative overflow-hidden bg-[#040604] py-28 sm:py-40">
+      <div className="pointer-events-none absolute top-1/2 left-1/2 h-[46vmin] w-[70vmin] -translate-x-1/2 -translate-y-1/2 rounded-full bg-mango/[0.08] blur-[110px]" aria-hidden />
+      <div className="relative mx-auto max-w-[1440px] px-5 text-center sm:px-8">
+        <Tag index="03" label="The big question" className="justify-center" />
+        <h2 id="question-title" className="display mt-8 text-[clamp(2.4rem,7vw,6rem)] text-cream">
+          <Words text="What if surplus" />
+          <br />
+          <span className="outline-text">
+            <Words text="had a" delay={0.25} />{" "}
+          </span>
+          <Words text="next best use?" delay={0.45} accentWords={["use?"]} />
+        </h2>
+        <Reveal delay={0.3}>
+          <p className="mx-auto mt-8 max-w-2xl text-[15.5px] leading-relaxed text-cream/60 sm:text-lg">
+            Not disposal. Not charity. A system that looks at what the market
+            left behind and asks a different question:{" "}
+            <span className="text-mango">what is this still good for?</span>
+          </p>
+        </Reveal>
+        <Reveal delay={0.45}>
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-3 sm:gap-5">
+            {["GRADE", "MATCH", "UTILIZE"].map((w, i) => (
+              <span key={w} className="flex items-center gap-3 sm:gap-5">
+                <span className="display text-[clamp(1.3rem,4.4vw,2.8rem)] text-mango">{w}</span>
+                {i < 2 && <span className="text-cream/25" aria-hidden>→</span>}
+              </span>
+            ))}
+          </div>
+          <p className="mt-5 font-mono text-[10.5px] tracking-[0.24em] text-cream/40 uppercase">
+            The operating philosophy behind everything WNA does
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* ============================== 04 · WHAT WNA DOES (GRADE → MATCH → UTILIZE) ========= */
 
 const GMU = [
   {
     word: "GRADE",
     n: "01",
-    body: "Understand the quantity, condition and potential use of surplus produce.",
-    detail: "Every batch — mango, pineapple, cassava or vegetables — is assessed before it moves, so nothing valuable is treated as waste by default.",
+    body: "Understand what is available and what condition it is in.",
+    detail: "Quantity, quality and suitability are assessed batch by batch — so nothing valuable is treated as waste by default.",
     img: IMG.peppers,
+    alt: "Representative image — produce assessed by condition and grade",
   },
   {
     word: "MATCH",
     n: "02",
-    body: "Identify the buyer, processor or recovery pathway that can use it.",
-    detail: "Demand is mapped to material — not the other way around. The right destination, at the right time, anywhere in Ghana.",
+    body: "Identify the most suitable productive use and buyer or end-use pathway.",
+    detail: "Demand is mapped to material — not the other way around. The right destination, at the right time, in Ghana.",
     img: IMG.umbrellaMarket,
+    alt: "Representative image — a Ghanaian market where supply meets demand",
   },
   {
     word: "UTILIZE",
     n: "03",
-    body: "Move, process or transform it into its highest viable application.",
+    body: "Convert surplus into useful products, ingredients or other productive applications.",
     detail: "Through WNA processing or coordinated partners, surplus becomes product, ingredient or input.",
     img: IMG.dried,
+    alt: "Concept render — dried mango material ready for productive use",
   },
 ];
 
@@ -38,12 +83,12 @@ export function WhatWeDo() {
   const orbY = useTransform(scrollYProgress, [0, 1], ["0%", "320%"]);
 
   return (
-    <section ref={ref} id="what" className="relative overflow-hidden bg-paper py-28 text-ink sm:py-40">
-      <div className="grid-light pointer-events-none absolute inset-0" />
+    <section ref={ref} id="approach" aria-labelledby="approach-title" className="relative overflow-hidden bg-paper py-28 text-ink sm:py-40">
+      <div className="grid-light pointer-events-none absolute inset-0" aria-hidden />
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
-        <Tag index="03" label="What WNA does" dark />
+        <Tag index="04" label="The WNA approach" dark />
 
-        <h2 className="display mt-8 max-w-6xl text-[clamp(2.2rem,6.4vw,5.4rem)]">
+        <h2 id="approach-title" className="display mt-8 max-w-6xl text-[clamp(2.2rem,6.4vw,5.4rem)]">
           <span className="text-ink/35">
             <Words text="We don't start with waste." />
           </span>
@@ -62,6 +107,7 @@ export function WhatWeDo() {
                     type="button"
                     onClick={() => setActive(i)}
                     onMouseEnter={() => setActive(i)}
+                    aria-expanded={isActive}
                     className="group flex w-full cursor-pointer items-center justify-between gap-4 py-6 text-left sm:py-8"
                   >
                     <span className="flex items-baseline gap-4 sm:gap-6">
@@ -82,6 +128,7 @@ export function WhatWeDo() {
                         "grid h-11 w-11 shrink-0 place-items-center rounded-full border transition-all duration-500",
                         isActive ? "rotate-0 border-ink bg-ink text-mango" : "-rotate-45 border-ink/20 text-ink/30",
                       )}
+                      aria-hidden
                     >
                       <ArrowRight className="h-5 w-5" />
                     </span>
@@ -103,7 +150,7 @@ export function WhatWeDo() {
                             <p className="mt-3 max-w-md text-[14px] leading-relaxed text-smoke">{g.detail}</p>
                           </div>
                           <div className="hidden overflow-hidden rounded-sm sm:block">
-                            <img src={g.img} alt={`${g.word} — surplus assessment`} loading="lazy" className="aspect-[4/5] w-full object-cover" />
+                            <img src={g.img} alt={g.alt} loading="lazy" className="aspect-[4/5] w-full object-cover" />
                           </div>
                         </div>
                       </motion.div>
@@ -114,13 +161,13 @@ export function WhatWeDo() {
             })}
           </div>
 
-          {/* Travelling mango through the system */}
-          <div className="relative hidden lg:block">
+          {/* Travelling batch through the system */}
+          <div className="relative hidden lg:block" aria-hidden>
             <div className="sticky top-28 overflow-hidden rounded-sm">
               <div className="relative">
                 <img
                   src={IMG.smilingHarvester}
-                  alt="A Ghanaian harvest moving through the WNA grading system"
+                  alt=""
                   loading="lazy"
                   className="aspect-[3/4] w-full object-cover"
                 />
@@ -138,10 +185,13 @@ export function WhatWeDo() {
                   <span>UTILIZE — RECOVERED</span>
                 </div>
                 <div className="absolute right-0 bottom-0 left-0 p-7">
-                  <p className="display-tight text-xl text-cream">One harvest. One system. Zero guessing.</p>
+                  <p className="display-tight text-xl text-cream">One pathway. Three decisions. Zero guessing.</p>
                 </div>
               </div>
             </div>
+            <p className="mt-3 font-mono text-[9.5px] tracking-[0.14em] text-smoke/70 uppercase">
+              Representative imagery — not WNA personnel
+            </p>
           </div>
         </div>
       </div>
@@ -149,15 +199,15 @@ export function WhatWeDo() {
   );
 }
 
-/* ============================== 04 · CURRENT OPERATION ============================== */
+/* ============================== 05 · CURRENT OPERATION — MANGO ===================== */
 
 const JOURNEY = [
-  { k: "SURPLUS MANGO", d: "Cleared for feed / compost applications.", img: IMG.heroMango, tag: "SOURCE" },
-  { k: "MILL", d: "Size reduction into a workable stream.", img: IMG.factory, tag: "PROCESS" },
-  { k: "WET PULP", d: "Mango pulp / paste, ready for drying.", img: IMG.pulp, tag: "STREAM" },
-  { k: "DRY", d: "Moisture removed for stability.", img: IMG.dried, tag: "PROCESS" },
-  { k: "PACKAGE", d: "Weighed and sealed in 50kg sacks.", img: IMG.sack, tag: "OUTPUT", contain: true },
-  { k: "BUYER", d: "Delivered to feed / ingredient buyers.", img: IMG.truckOrange, tag: "DESTINATION" },
+  { k: "SURPLUS MANGO", d: "Cleared for productive use.", img: IMG.heroMango, alt: "Concept render — surplus mangoes awaiting their next use", tag: "SOURCE" },
+  { k: "MILL", d: "Size reduction into a workable stream.", img: IMG.mill, alt: "Illustrative concept — fruit milling equipment reducing mango into a pulp stream; not a WNA facility", tag: "PROCESS" },
+  { k: "WET PULP", d: "Mango pulp / paste prepared for drying.", img: IMG.pulp, alt: "Concept render — milled mango pulp ready for drying", tag: "STREAM" },
+  { k: "DRY", d: "Moisture removed for improved stability.", img: IMG.dried, alt: "Concept render — dried mango pieces after moisture removal", tag: "PROCESS" },
+  { k: "PACKAGE", d: "Weighed and sealed for handling.", img: IMG.sack, alt: "Concept mockup — a WNA-branded sack of dried mango feed ingredient", tag: "OUTPUT", contain: true },
+  { k: "BUYER", d: "Delivered to appropriate ingredient / feed buyers.", img: IMG.truck, alt: "Representative image — a truck delivering goods; not a WNA vehicle", tag: "DESTINATION" },
 ];
 
 function JourneyCard({ j, i }: { j: (typeof JOURNEY)[number]; i: number }) {
@@ -166,22 +216,22 @@ function JourneyCard({ j, i }: { j: (typeof JOURNEY)[number]; i: number }) {
       <div className="relative overflow-hidden rounded-sm">
         <img
           src={j.img}
-          alt={j.k}
+          alt={j.alt}
           loading="lazy"
           className={cn("aspect-[4/5] w-full transition-transform duration-[1.3s] ease-out group-hover:scale-105", j.contain ? "bg-coal object-contain p-6" : "object-cover")}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/15 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/15 to-transparent" aria-hidden />
         <span className="absolute top-4 left-4 rounded-full border border-cream/25 bg-ink/55 px-3 py-1 font-mono text-[10px] tracking-[0.22em] text-cream backdrop-blur-sm">
           {j.tag}
         </span>
-        <span className="display absolute top-3 right-4 text-5xl text-cream/25">0{i + 1}</span>
+        <span className="display absolute top-3 right-4 text-5xl text-cream/25" aria-hidden>0{i + 1}</span>
         <div className="absolute right-0 bottom-0 left-0 p-6">
           <p className="display-tight text-[1.65rem] text-cream">{j.k}</p>
           <p className="mt-2 text-[13.5px] leading-relaxed text-cream/60">{j.d}</p>
         </div>
       </div>
       {i < JOURNEY.length - 1 && (
-        <span className="absolute top-1/2 -right-7 z-10 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-mango text-ink md:flex">
+        <span className="absolute top-1/2 -right-7 z-10 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-mango text-ink md:flex" aria-hidden>
           <ArrowRight className="h-4 w-4" />
         </span>
       )}
@@ -195,12 +245,13 @@ export function Operation() {
   const x = useTransform(scrollYProgress, [0, 1], ["2%", "-72%"]);
 
   return (
-    <section id="how" className="relative bg-ink">
+    <section id="operations" aria-labelledby="operations-title" className="relative bg-ink">
       <div className="mx-auto max-w-[1440px] px-5 pt-28 sm:px-8 sm:pt-40">
-        <Tag index="04" label="The current operation" />
+        <Tag index="05" label="The current operation" />
         <div className="mt-8 flex flex-wrap items-end justify-between gap-6">
-          <h2 className="display max-w-4xl text-[clamp(2.2rem,6.4vw,5.4rem)] text-cream">
-            <Words text="We start" /> <Words text="with mango." delay={0.2} accentWords={["mango."]} />
+          <h2 id="operations-title" className="display max-w-4xl text-[clamp(2.2rem,6.4vw,5.4rem)] text-cream">
+            <Words text="The mango line." />{" "}
+            <Words text="Run end to end." delay={0.2} accentWords={["end."]} />
           </h2>
           <StatusBadge status="CURRENT" />
         </div>
@@ -212,15 +263,15 @@ export function Operation() {
         <div className="mt-8 grid max-w-4xl gap-5 text-[15px] leading-relaxed text-cream/60 sm:text-base">
           <Reveal>
             <p>
-              WNA is beginning with surplus mango that is no longer suitable for
-              its original food-production destination — but is cleared for feed
-              or compost applications.
+              WNA is beginning with surplus mango that is no longer suited to its
+              original market — but can still be cleared for productive use, such
+              as feed or compost applications.
             </p>
           </Reveal>
           <Reveal delay={0.1}>
             <p>
-              Rather than allowing that remaining value to disappear, WNA is
-              developing a process to <span className="text-cream">recover and standardize its feed value.</span>
+              Rather than letting that remaining value disappear, WNA is
+              developing a process to <span className="text-cream">recover and standardize it.</span>
             </p>
           </Reveal>
           <Reveal delay={0.15}>
@@ -228,7 +279,7 @@ export function Operation() {
               <span className="font-mono text-[10.5px] tracking-[0.22em] text-cream/45 uppercase">
                 Next in pipeline
               </span>
-              {["PINEAPPLE", "CASSAVA", "PLANTAIN"].map((c) => (
+              {BROADER_OPPORTUNITY.slice(0, 3).map((c) => (
                 <span
                   key={c}
                   className="rounded-full border border-cream/20 px-4 py-2 font-mono text-[10.5px] tracking-[0.18em] text-cream/75"
@@ -247,7 +298,7 @@ export function Operation() {
       </div>
 
       {/* Desktop: sticky horizontal journey */}
-      <div ref={targetRef} className="relative mt-14 hidden h-[320vh] md:block">
+      <div ref={targetRef} className="relative mt-14 hidden md:block">
         <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
           <motion.div style={{ x }} className="flex items-stretch gap-14 px-[8vw]">
             {JOURNEY.map((j, i) => (
@@ -258,6 +309,9 @@ export function Operation() {
               <a href="#product" className="mt-6 inline-flex items-center gap-2 text-[13px] font-semibold tracking-[0.14em] text-mango uppercase">
                 See the product <ArrowUpRight className="h-4 w-4" />
               </a>
+              <p className="mt-8 max-w-[220px] font-mono text-[9.5px] leading-relaxed tracking-[0.12em] text-cream/35 uppercase">
+                Imagery shows the operating concept. Facility photography replaces these visuals as it becomes available.
+              </p>
             </div>
           </motion.div>
           <div className="mx-[8vw] mt-10 h-px bg-cream/12">
@@ -272,9 +326,9 @@ export function Operation() {
           {JOURNEY.map((j, i) => (
             <Reveal key={j.k} delay={0.05}>
               <div className="relative">
-                <span className="absolute top-6 -left-[33px] h-3 w-3 rounded-full bg-mango" />
+                <span className="absolute top-6 -left-[33px] h-3 w-3 rounded-full bg-mango" aria-hidden />
                 <div className="overflow-hidden rounded-sm">
-                  <img src={j.img} alt={j.k} loading="lazy" className={cn("aspect-[16/10] w-full", j.contain ? "bg-coal object-contain p-8" : "object-cover")} />
+                  <img src={j.img} alt={j.alt} loading="lazy" className={cn("aspect-[16/10] w-full", j.contain ? "bg-coal object-contain p-8" : "object-cover")} />
                 </div>
                 <div className="flex items-baseline justify-between pt-4">
                   <p className="display-tight text-xl text-cream">{j.k}</p>
@@ -285,6 +339,9 @@ export function Operation() {
             </Reveal>
           ))}
         </div>
+        <p className="mt-8 font-mono text-[9.5px] leading-relaxed tracking-[0.12em] text-cream/35 uppercase">
+          Imagery shows the operating concept — not a WNA facility.
+        </p>
       </div>
     </section>
   );

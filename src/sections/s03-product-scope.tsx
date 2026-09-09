@@ -1,9 +1,118 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { IMG } from "../data";
+import { BROADER_OPPORTUNITY, CURRENT_FOCUS, IMG } from "../data";
 import { EASE, Reveal, StatusBadge, Tag, Words } from "../components/ui";
 
-/* ============================== 05 · PRODUCT ============================== */
+/* ============================== 06 · MANGO VS SURPLUS ==============================
+   The credibility line: one crop now, one system for everything after it.     */
+
+export function WhyMatters() {
+  return (
+    <section id="scope" aria-labelledby="scope-title" className="relative overflow-hidden bg-pine py-28 sm:py-40">
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <img src={IMG.aerialDusk} alt="" aria-hidden loading="lazy" className="h-full w-full object-cover opacity-[0.16]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-pine via-pine/70 to-pine" />
+      </div>
+      <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
+        <Tag index="06" label="The strategic frame" />
+        <h2 id="scope-title" className="display mt-8 max-w-5xl text-[clamp(2.2rem,6.4vw,5.4rem)] text-cream">
+          <Words text="Mango is where" />
+          <br />
+          <Words text="we start." delay={0.2} accentWords={["start."]} />{" "}
+          <span className="text-cream/40">
+            <Words text="Surplus is" delay={0.45} />{" "}
+            <Words text="what we're solving." delay={0.6} />
+          </span>
+        </h2>
+
+        <div className="mt-16 grid gap-px overflow-hidden rounded-sm border border-cream/12 bg-cream/15 lg:grid-cols-2">
+          {/* Current focus */}
+          <div className="bg-pine p-8 sm:p-10">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <p className="eyebrow text-leaf">Current focus</p>
+              <StatusBadge status="CURRENT" />
+            </div>
+            <p className="display mt-6 text-[clamp(2.6rem,7vw,4.4rem)] text-cream">{CURRENT_FOCUS[0]}</p>
+            <p className="mt-4 max-w-md text-[14.5px] leading-relaxed text-cream/60">
+              One crop, run end to end: recovered, milled, dried, packaged and
+              delivered. Mango is the proving ground for the whole system —
+              the physical operation comes first.
+            </p>
+            <div className="mt-8 overflow-hidden rounded-sm">
+              <img src={IMG.heroMango} alt="Concept render — surplus mangoes awaiting productive use" loading="lazy" className="aspect-[16/9] w-full object-cover" />
+            </div>
+          </div>
+
+          {/* Broader opportunity */}
+          <div className="bg-ink/60 p-8 sm:p-10">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <p className="eyebrow text-mango">Future / broader opportunity</p>
+              <StatusBadge status="LONG-TERM VISION" />
+            </div>
+            <p className="mt-6 flex flex-wrap items-center gap-3">
+              {BROADER_OPPORTUNITY.map((c, i) => (
+                <motion.span
+                  key={c}
+                  initial={{ opacity: 0, scale: 0.85 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.7, ease: EASE, delay: i * 0.08 }}
+                  className="display rounded-sm border border-cream/20 bg-cream/5 px-4 py-2.5 text-[clamp(0.9rem,2.4vw,1.15rem)] font-bold tracking-[0.06em] text-cream/85 backdrop-blur-sm transition-colors hover:border-mango/60 hover:text-mango"
+                  style={{ fontStretch: "110%" }}
+                >
+                  {c}
+                </motion.span>
+              ))}
+            </p>
+            <p className="mt-4 max-w-md text-[14.5px] leading-relaxed text-cream/60">
+              These crops share the same pattern as mango: real value, arriving
+              faster than the market can absorb it. WNA is developing pathways
+              for them — <span className="text-cream">they are opportunities, not
+              current operations.</span>
+            </p>
+            <div className="mt-8 grid grid-cols-3 gap-3">
+              {[
+                { k: "PINEAPPLE", img: IMG.pineappleBasket },
+                { k: "CASSAVA", img: IMG.cassavaStall },
+                { k: "PLANTAIN", img: IMG.plantainPile },
+              ].map((c) => (
+                <div key={c.k} className="overflow-hidden rounded-sm border border-cream/12">
+                  <img
+                    src={c.img}
+                    alt={`Representative image — ${c.k.toLowerCase()} at a market`}
+                    loading="lazy"
+                    className="aspect-[4/3] w-full object-cover"
+                  />
+                  <div className="bg-ink/80 p-2.5">
+                    <p className="font-mono text-[9.5px] tracking-[0.16em] text-cream/70">{c.k}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-16 grid gap-10 border-t border-cream/12 pt-12 lg:grid-cols-2 lg:gap-20">
+          <Reveal>
+            <p className="text-[15.5px] leading-relaxed text-cream/65 sm:text-lg">
+              Agricultural surplus becomes a value-loss problem when supply and
+              demand fail to meet at the{" "}
+              <span className="text-cream">right time, place, quality and price.</span>
+            </p>
+          </Reveal>
+          <Reveal delay={0.12}>
+            <p className="eyebrow text-mango">WNA's opportunity</p>
+            <p className="display-tight mt-4 text-[clamp(1.6rem,3.6vw,2.6rem)] text-cream">
+              Build the system that connects surplus to its next viable use.
+            </p>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================== 07 · PRODUCT ============================== */
 
 const STAGES = [
   { k: "Source", d: "Recover cleared surplus mango." },
@@ -11,12 +120,12 @@ const STAGES = [
   { k: "Mill", d: "Reduce to wet pulp / paste." },
   { k: "Dry", d: "Stabilize into dry material." },
   { k: "Weigh", d: "Verify every batch." },
-  { k: "Package", d: "Seal into 50kg sacks." },
+  { k: "Package", d: "Seal for transport and handling." },
   { k: "Deliver", d: "Move to feed / ingredient buyers." },
 ];
 
 const SPECS = [
-  { k: "FORMAT", v: "50 KG SACK" },
+  { k: "FORMAT", v: "50 KG SACK (PLANNED)" },
   { k: "SOURCE", v: "RECOVERED MANGO SURPLUS" },
   { k: "USE", v: "FEED / INGREDIENT APPLICATIONS" },
   { k: "STATUS", v: "IN DEVELOPMENT" },
@@ -28,13 +137,13 @@ export function Product() {
   const fill = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section id="product" className="relative overflow-hidden bg-cream py-28 text-ink sm:py-40">
-      <div className="pointer-events-none absolute -top-40 -right-40 h-[520px] w-[520px] rounded-full bg-mango/15 blur-[140px]" />
+    <section id="product" aria-labelledby="product-title" className="relative overflow-hidden bg-cream py-28 text-ink sm:py-40">
+      <div className="pointer-events-none absolute -top-40 -right-40 h-[520px] w-[520px] rounded-full bg-mango/15 blur-[140px]" aria-hidden />
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
-        <Tag index="05" label="The product" dark />
+        <Tag index="07" label="The product" dark />
 
         <div className="mt-8 flex flex-wrap items-end justify-between gap-6">
-          <h2 className="display max-w-4xl text-[clamp(2.2rem,6.4vw,5.4rem)]">
+          <h2 id="product-title" className="display max-w-4xl text-[clamp(2.2rem,6.4vw,5.4rem)]">
             <Words text="From surplus" /> <Words text="to ingredient." delay={0.2} accentWords={["ingredient."]} accentClass="text-ember" />
           </h2>
           <StatusBadge status="IN DEVELOPMENT" dark />
@@ -50,12 +159,12 @@ export function Product() {
               transition={{ duration: 1, ease: EASE }}
               className="relative overflow-hidden rounded-sm bg-ink"
             >
-              <div className="grid-dark absolute inset-0 opacity-70" />
-              <div className="absolute top-1/2 left-1/2 h-[75%] w-[75%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-mango/30 animate-spin-slow" />
-              <div className="absolute top-1/2 left-1/2 h-[55%] w-[55%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cream/10" />
+              <div className="grid-dark absolute inset-0 opacity-70" aria-hidden />
+              <div className="absolute top-1/2 left-1/2 h-[75%] w-[75%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-mango/30 animate-spin-slow" aria-hidden />
+              <div className="absolute top-1/2 left-1/2 h-[55%] w-[55%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cream/10" aria-hidden />
               <motion.img
                 src={IMG.sack}
-                alt="WNA dried mango feed ingredient in a branded 50kg sack"
+                alt="Concept mockup — a WNA-branded sack of dried mango feed ingredient. Packaging design study, not a photo of a finished product."
                 loading="lazy"
                 animate={{ y: [0, -12, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
@@ -80,45 +189,30 @@ export function Product() {
               ))}
             </div>
             <p className="mt-4 font-mono text-[10.5px] leading-relaxed tracking-[0.08em] text-smoke">
-              * Commercial specifications to be confirmed. No nutritional claims made at this stage.
+              * Development-stage specifications, to be confirmed. Packaging shown is a
+              design concept. No nutritional or certification claims are made at this stage.
             </p>
-
-            <div className="mt-8">
-              <p className="font-mono text-[10.5px] tracking-[0.24em] text-smoke uppercase">
-                Recovery pipeline — beyond mango
-              </p>
-              <div className="mt-4 grid grid-cols-3 gap-3">
-                {[
-                  { k: "PINEAPPLE", img: IMG.pineappleBasket },
-                  { k: "CASSAVA", img: IMG.cassavaStall },
-                  { k: "PLANTAIN", img: IMG.plantainPile },
-                ].map((c) => (
-                  <div key={c.k} className="overflow-hidden rounded-sm border border-ink/12 bg-cream">
-                    <img
-                      src={c.img}
-                      alt={`${c.k} surplus in Ghana — recovery process in development`}
-                      loading="lazy"
-                      className="aspect-[4/3] w-full object-cover"
-                    />
-                    <div className="p-3">
-                      <p className="font-mono text-[10px] tracking-[0.16em]">{c.k}</p>
-                      <p className="mt-1 text-[11px] text-smoke">In development</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
 
           {/* 7-stage scroll timeline */}
           <div ref={tlRef} className="relative">
-            <div className="absolute top-2 bottom-2 left-[7px] w-px bg-ink/12">
+            <div className="absolute top-2 bottom-2 left-[7px] w-px bg-ink/12" aria-hidden>
               <motion.div className="w-full origin-top bg-gradient-to-b from-wna via-mango to-ember" style={{ height: fill }} />
             </div>
             <div className="space-y-2">
               {STAGES.map((s, i) => (
                 <StageRow key={s.k} index={i} title={s.k} desc={s.d} progress={scrollYProgress} total={STAGES.length} />
               ))}
+            </div>
+            <div className="mt-10 border-t border-ink/12 pt-6">
+              <p className="eyebrow text-ink/45">Recovery pipeline — beyond mango</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {BROADER_OPPORTUNITY.map((c) => (
+                  <span key={c} className="rounded-full border border-ink/20 px-4 py-2 font-mono text-[10.5px] tracking-[0.18em] text-ink/70">
+                    {c} · IN DEVELOPMENT
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -143,6 +237,7 @@ function StageRow({
       <motion.span
         style={{ scale: dotScale }}
         className="absolute top-7 left-0 h-[15px] w-[15px] rounded-full border-[3px] border-cream bg-ink shadow-[0_0_0_1px_rgba(6,10,7,0.25)]"
+        aria-hidden
       />
       <div className="flex flex-1 items-baseline justify-between gap-4">
         <div>
@@ -152,85 +247,5 @@ function StageRow({
         </div>
       </div>
     </motion.div>
-  );
-}
-
-/* ============================== 06 · WHY IT MATTERS ============================== */
-
-const COMMODITIES = ["MANGO", "PINEAPPLE", "CASSAVA", "PLANTAIN", "MAIZE", "VEGETABLES"];
-
-export function WhyMatters() {
-  return (
-    <section className="relative overflow-hidden bg-pine py-28 sm:py-40">
-      <div className="pointer-events-none absolute inset-0">
-        <img src={IMG.aerialDusk} alt="" aria-hidden loading="lazy" className="h-full w-full object-cover opacity-[0.16]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-pine via-pine/70 to-pine" />
-      </div>
-      <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
-        <Tag index="06" label="Why it matters" />
-        <h2 className="display mt-8 max-w-5xl text-[clamp(2.2rem,6.4vw,5.4rem)] text-cream">
-          <Words text="The problem is" />
-          <br />
-          <Words text="bigger than mango." delay={0.25} accentWords={["mango."]} />
-        </h2>
-
-        {/* Commodity chain */}
-        <div className="mt-16 sm:mt-24">
-          <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-            {COMMODITIES.map((c, i) => (
-              <div key={c} className="flex items-center gap-3 sm:gap-4">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.85 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ duration: 0.7, ease: EASE, delay: i * 0.12 }}
-                  whileHover={{ scale: 1.05 }}
-                  className={
-                    i === 0
-                      ? "rounded-full bg-mango px-6 py-3.5 font-display text-[13px] font-extrabold tracking-[0.1em] text-ink sm:px-8 sm:py-4 sm:text-sm"
-                      : "rounded-full border border-cream/20 bg-cream/5 px-6 py-3.5 font-display text-[13px] font-bold tracking-[0.1em] text-cream/85 backdrop-blur-sm transition-colors hover:border-mango/60 hover:text-mango sm:px-8 sm:py-4 sm:text-sm"
-                  }
-                  style={{ fontStretch: "110%" }}
-                >
-                  {c}
-                </motion.div>
-                {i < COMMODITIES.length - 1 && (
-                  <motion.span
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2 + i * 0.12 }}
-                    className="text-lg text-mango sm:text-xl"
-                  >
-                    →
-                  </motion.span>
-                )}
-              </div>
-            ))}
-          </div>
-          <Reveal delay={0.2}>
-            <p className="mt-6 font-mono text-[10.5px] tracking-[0.22em] text-cream/45 uppercase">
-              Mango today — the system is designed for every Ghanaian surplus after it
-            </p>
-          </Reveal>
-        </div>
-
-        <div className="mt-16 grid gap-10 border-t border-cream/12 pt-12 sm:mt-24 lg:grid-cols-2 lg:gap-20">
-          <Reveal>
-            <p className="text-[15.5px] leading-relaxed text-cream/65 sm:text-lg">
-              Agricultural surplus becomes a value-loss problem when supply and
-              demand fail to meet at the{" "}
-              <span className="text-cream">right time, place, quality and price.</span>
-            </p>
-          </Reveal>
-          <Reveal delay={0.12}>
-            <p className="eyebrow text-mango">WNA's opportunity</p>
-            <p className="display-tight mt-4 text-[clamp(1.6rem,3.6vw,2.6rem)] text-cream">
-              Build the system that connects surplus to its next viable use.
-            </p>
-          </Reveal>
-        </div>
-      </div>
-    </section>
   );
 }

@@ -31,7 +31,7 @@ function PendingLogo({ compact }: { compact?: boolean }) {
       >
         WNA
       </span>
-      {!compact && (
+      {import.meta.env.DEV && !compact && (
         <span className="mt-1.5 font-mono text-[8px] tracking-[0.2em] text-ink/50 uppercase">
           Official logo pending
         </span>

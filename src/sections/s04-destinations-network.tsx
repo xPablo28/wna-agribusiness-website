@@ -63,7 +63,7 @@ function DecisionTree() {
         <button
           type="button"
           onClick={reset}
-          className="flex cursor-pointer items-center gap-2 font-mono text-[10.5px] tracking-[0.2em] text-ink/50 uppercase transition-colors hover:text-ember"
+          className="flex min-h-10 cursor-pointer items-center gap-2 rounded-full px-3 font-mono text-[10.5px] tracking-[0.2em] text-ink/50 uppercase transition-colors hover:text-ember"
         >
           <RotateCcw className="h-3.5 w-3.5" /> Reset
         </button>
@@ -189,14 +189,14 @@ function DecisionTree() {
 
 export function Destinations() {
   return (
-    <section className="relative overflow-hidden bg-sand py-28 text-ink sm:py-40">
+    <section id="destinations" aria-labelledby="destinations-title" className="relative overflow-hidden bg-sand py-28 text-ink sm:py-40">
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
         <div className="flex flex-wrap items-end justify-between gap-6">
-          <Tag index="07" label="Three value destinations" dark />
+          <Tag index="08" label="Value destinations" dark />
           <StatusBadge status="IN DEVELOPMENT" dark />
         </div>
 
-        <h2 className="display mt-8 max-w-5xl text-[clamp(2rem,5.4vw,4.6rem)]">
+        <h2 id="destinations-title" className="display mt-8 max-w-5xl text-[clamp(2rem,5.4vw,4.6rem)]">
           <Words text="Not every batch" />
           <br />
           <Words text="belongs in the same market." delay={0.25} accentWords={["market."]} accentClass="text-ember" />
@@ -238,22 +238,29 @@ export function Destinations() {
   );
 }
 
-/* ============================== 08 · NETWORK ============================== */
+/* ============================== 09 · NETWORK / VALUE CHAIN ========================= */
 
-const FLOW = ["SUPPLIERS", "WNA", "PROCESSING", "BUYERS", "END USE"];
+const FLOW = ["PRODUCERS", "WNA", "PROCESSING", "PRODUCT / INGREDIENT", "BUYERS / END USE"];
 const DATA_LAYERS = ["SUPPLY DATA", "QUALITY DATA", "DEMAND DATA", "PRICE DATA", "LOGISTICS DATA", "TRANSACTION DATA"];
 
 export function Network() {
   return (
-    <section className="relative overflow-hidden bg-ink py-28 sm:py-40">
-      <div className="grid-dark pointer-events-none absolute inset-0 opacity-50" />
+    <section id="network" aria-labelledby="network-title" className="relative overflow-hidden bg-ink py-28 sm:py-40">
+      <div className="grid-dark pointer-events-none absolute inset-0 opacity-50" aria-hidden />
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
-        <Tag index="08" label="The WNA network" />
-        <h2 className="display mt-8 max-w-5xl text-[clamp(2.2rem,6vw,5rem)] text-cream">
-          <Words text="The product is" />
+        <Tag index="09" label="The WNA network" />
+        <h2 id="network-title" className="display mt-8 max-w-5xl text-[clamp(2.2rem,6vw,5rem)] text-cream">
+          <Words text="Between supply" />
           <br />
-          <Words text="only the beginning." delay={0.25} accentWords={["beginning."]} />
+          <Words text="and productive demand." delay={0.25} accentWords={["demand."]} />
         </h2>
+        <Reveal delay={0.15}>
+          <p className="mt-6 max-w-2xl text-[15.5px] leading-relaxed text-cream/60 sm:text-lg">
+            WNA sits in the middle of this chain: agricultural supply enters
+            from one side, productive demand from the other. <span className="text-cream">Everyone
+            in the line has a defined role — including you.</span>
+          </p>
+        </Reveal>
 
         {/* Flow */}
         <div className="mt-14 sm:mt-20">
@@ -276,7 +283,15 @@ export function Network() {
                     </span>
                   )}
                   <p className={cn("display-tight text-lg sm:text-xl", f === "WNA" ? "text-mango" : "text-cream")}>{f}</p>
-                  {f === "WNA" && <p className="mt-2 font-mono text-[10px] tracking-[0.18em] text-cream/50">GRADE · MATCH · UTILIZE</p>}
+                  <p className="mt-2 text-[12px] leading-relaxed text-cream/50">
+                    {{
+                      PRODUCERS: "Farms, aggregators and processors with surplus",
+                      WNA: "Grade → Match → Utilize",
+                      PROCESSING: "Milling, drying, standardizing — by WNA or partners",
+                      "PRODUCT / INGREDIENT": "Verified material, ready for its next use",
+                      "BUYERS / END USE": "Feed, ingredients and recovery applications",
+                    }[f]}
+                  </p>
                 </motion.div>
                 {i < FLOW.length - 1 && (
                   <div className="flex items-center justify-center py-3 lg:px-2 lg:py-0">
@@ -296,9 +311,18 @@ export function Network() {
           </div>
 
           {/* Animated connection line */}
-          <svg className="mt-8 hidden h-6 w-full lg:block" preserveAspectRatio="none" viewBox="0 0 1000 24">
+          <svg className="mt-8 hidden h-6 w-full lg:block" preserveAspectRatio="none" viewBox="0 0 1000 24" aria-hidden>
             <line x1="0" y1="12" x2="1000" y2="12" stroke="rgba(242,164,28,0.5)" strokeWidth="2" strokeDasharray="14 14" className="animate-flow" />
           </svg>
+
+          <Reveal delay={0.2}>
+            <div className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-sm border border-mango/30 bg-mango/[0.06] p-5 sm:px-7">
+              <p className="display-tight text-lg text-cream sm:text-xl">Where do you fit in this line?</p>
+              <a href="#partners" className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.2em] text-mango uppercase transition-colors hover:text-cream">
+                Producer, buyer or partner — start here →
+              </a>
+            </div>
+          </Reveal>
         </div>
 
         {/* Data layers */}

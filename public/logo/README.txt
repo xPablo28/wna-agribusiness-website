@@ -4,30 +4,27 @@ WNA OFFICIAL LOGO — HOW THE SITE LOADS IT
 The website uses the official WNA logo EXACTLY as supplied.
 Nothing is redrawn, recolored, cropped or stretched.
 
-Chat attachments do not reach the project files, so the
-artwork must arrive one of two ways:
-
-OPTION A — Save the file here
-  Save the official logo image in THIS folder as:
+OPTION A — Save the file here (recommended)
+  Put the official logo image in THIS folder as:
 
       wna-logo.png
 
   Full path:  public/logo/wna-logo.png
-  (The white/off-white background is fine.)
+  (A white/off-white background is fine — the site presents it
+  on a light plate. SVG is also supported: rename the reference
+  in src/components/Logo.tsx if you prefer SVG.)
 
 OPTION B — Hosted URL
-  Host the logo anywhere public (your website, Drive share
-  link, Imgur, Cloudinary…) and paste the direct image URL into:
-
-      src/components/Logo.tsx  →  WNA_LOGO_REMOTE_URL = "https://…"
+  Host the logo anywhere public and paste the direct image URL
+  into:  src/components/Logo.tsx  →  WNA_LOGO_REMOTE_URL = "https://…"
 
 The logo then appears automatically in:
-  - Navigation (compact) + mobile menu
-  - Loading screen (large, glow + float)
+  - Navigation bar (compact) and the mobile menu
   - About section (brand statement)
-  - Final statement section (large, glow + float)
   - Footer
-  - Browser tab icon + social share image (og:image)
+  - Browser tab icon (index.html links /logo/wna-logo.png)
+  - Social share image (og:image)
 
-Until one of these is done, a small neutral "WNA" pending
-badge is shown in those placements.
+Until one of these is done, the site shows a neutral "WNA"
+text badge in every placement (no artwork is invented, and the
+"pending" note is only visible in development builds).
