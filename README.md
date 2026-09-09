@@ -37,7 +37,7 @@ host (Netlify, Vercel, S3+CloudFront, nginx…).
 
 | Asset | Location | Notes |
 | --- | --- | --- |
-| Official logo | `public/logo/wna-logo.png` | Used *as supplied* — never redrawn. Favicon, og:image and every site placement switch to it automatically (see `public/logo/README.txt`). |
+| Official logo | `public/logo/wna-logo.jpg` ✅ installed | Used *as supplied* (byte-identical copy) — never redrawn. Appears in nav, About, footer, favicon and og:image (see `public/logo/README.txt`). |
 | Mill / equipment photo | `public/images/mill.jpg`, then set it in `src/data.ts → IMG.mill` | Currently a clearly-labelled **concept render** stands in. Replace with a real photo when available. |
 | Founder photos | `public/images/founders/*.jpg` + path in `src/data.ts → FOUNDERS[].photo` | Empty/broken paths keep the designed `[FOUNDER PHOTO]` slot visible — never a broken image. |
 
@@ -67,7 +67,7 @@ src/
 
 ## Pre-launch checklist
 
-1. Add `public/logo/wna-logo.png` (official artwork).
+1. ~~Official logo~~ ✅ installed at `public/logo/wna-logo.jpg` (exactly as supplied).
 2. Fill `COMPANY.contact` + social URLs in `src/data.ts` (the partner form activates itself once an email is set).
 3. Replace `FOUNDERS` placeholders with confirmed names/roles/bios/photos — or publish with the section hidden by removing the array entries.
 4. Swap `IMG.mill` when a real facility photo exists.

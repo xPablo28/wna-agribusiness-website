@@ -5,12 +5,13 @@ import { cn } from "../utils/cn";
    OFFICIAL WNA LOGO — USED EXACTLY AS SUPPLIED, NEVER MODIFIED.
 
    The component tries these sources in order:
-     1. LOCAL  → public/logo/wna-logo.png   (save the attached file here)
-     2. REMOTE → WNA_LOGO_REMOTE_URL         (or paste a public image URL)
+     1. LOCAL  → public/logo/wna-logo.jpg  (the official artwork,
+                  byte-identical to the file as supplied)
+     2. REMOTE → WNA_LOGO_REMOTE_URL        (or paste a public image URL)
    Whichever loads first is shown as-is: no redraw, recolor, crop or
    stretch. The light plate + sheen/float/glow are presentation only.
 ------------------------------------------------------------------- */
-export const WNA_LOGO_LOCAL = "/logo/wna-logo.png";
+export const WNA_LOGO_LOCAL = "/logo/wna-logo.jpg";
 /** Optional: paste a public URL to the official logo image here. */
 export const WNA_LOGO_REMOTE_URL = "";
 
@@ -23,7 +24,7 @@ function PendingLogo({ compact }: { compact?: boolean }) {
         "inline-flex flex-col items-center justify-center rounded-xl border border-dashed border-mango/60 bg-[#f7f7f5] text-center leading-none",
         compact ? "px-3 py-2" : "px-6 py-4",
       )}
-      title="Official WNA logo pending — save it as public/logo/wna-logo.png"
+      title="Official WNA logo pending — save it as public/logo/wna-logo.jpg"
     >
       <span
         className={cn("font-display font-black tracking-[0.06em] text-wna-deep", compact ? "text-[15px]" : "text-[24px]")}
