@@ -245,7 +245,7 @@ const DATA_LAYERS = ["SUPPLY DATA", "QUALITY DATA", "DEMAND DATA", "PRICE DATA",
 
 export function Network() {
   return (
-    <section id="network" aria-labelledby="network-title" className="relative overflow-hidden bg-ink py-28 sm:py-40">
+    <section id="network" aria-labelledby="network-title" className="relative overflow-hidden bg-wna-deep py-28 sm:py-40">
       <div className="grid-dark pointer-events-none absolute inset-0 opacity-50" aria-hidden />
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
         <Tag index="02" label="The WNA network" />

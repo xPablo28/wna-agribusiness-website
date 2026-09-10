@@ -48,8 +48,10 @@ Founders", "Work With WNA"), so the story reads continuously across pages.
   fallbacks instead of fake data. `grep -R "\[CONTACT\|\[FOUNDER\|\[PHONE\|\[LOCATION" src public index.html`
   shows what's left to fill.
 - Brand palette (`ink · pine · wna green · leaf · mango · ember · earth · sand · paper · cream`)
-  is defined as Tailwind theme tokens in `src/index.css`. Roughly 70 % dark green-black,
-  20 % cream, 10 % mango accents; the LOSS-highlight language is deliberate.
+  is defined as Tailwind theme tokens in `src/index.css`. Balance guideline: dark green/near-black
+  and cream sections alternate for rhythm (hero, operations, statements and footer dark; problem,
+  approach content, products, founders and partners light), WNA green carries accents and the
+  identity pages, and mango stays a sparing highlight (key words, numbers, CTAs, hover states).
 - **Truthfulness rules baked into the copy:** no invented statistics, no claimed
   partnerships/facility, product specs marked as development-stage, stock/concept imagery
   labelled representative — do not replace these with unverifiable claims.
@@ -58,7 +60,7 @@ Founders", "Work With WNA"), so the story reads continuously across pages.
 
 | Asset | Location | Notes |
 | --- | --- | --- |
-| Official logo | `public/logo/wna-logo.jpg` ✅ installed | Used *as supplied* (byte-identical copy) — never redrawn. Presented on a plate matched to the logo's own white field (`#f7f7f7`), minimal padding, no shadow — reads as part of the nav. Appears in nav, mobile menu, About, footer, favicon and og:image (see `public/logo/README.txt`). |
+| Official logo | `public/logo/wna-logo.jpg` ✅ installed + `wna-logo.png` (same pixels, background field keyed to transparency) | Used *as supplied* — never redrawn, recolored or cropped. The transparent copy lets the mark sit directly in the nav with no white card. Appears in nav, mobile menu, About, footer, favicon and og:image (see `public/logo/README.txt`). |
 | Mill / equipment photo | `public/images/mill.jpg`, then set it in `src/data.ts → IMG.mill` | Currently a clearly-labelled **concept render** stands in. Never replace with generic stock presented as a WNA facility. |
 | Founder photos | `public/images/founders/*.jpg` + path in `src/data.ts → FOUNDERS[].photo` | Empty/broken paths keep the designed `[FOUNDER N PHOTO]` slot visible — never a broken image. |
 
@@ -73,7 +75,7 @@ src/
   data.ts                 # ALL editable company content + image map
   index.css               # Tailwind v4 theme, brand tokens, motion, a11y
   components/
-    Logo.tsx              # official logo on a seam-matched plate + pending fallback
+    Logo.tsx              # official logo (transparent copy; no plate, no card) + pending fallback
     Nav.tsx               # sticky nav: page routes, active state, mobile menu (Esc, focus, aria)
     ui.tsx                # Tag / Words / Reveal / StatusBadge / CTAs / Marquee
   pages/                  # one file per route; page-hero.tsx opens interior pages

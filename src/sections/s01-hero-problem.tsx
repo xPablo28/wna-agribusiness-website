@@ -178,12 +178,12 @@ export function Problem({ variant = "full" }: { variant?: "full" | "teaser" }) {
   const lineW = useTransform(scrollYProgress, [0.1, 0.7], ["0%", "100%"]);
 
   return (
-    <section ref={ref} id="problem" aria-labelledby="problem-title" className="relative overflow-hidden bg-ink py-28 sm:py-40">
-      <div className="grid-dark pointer-events-none absolute inset-0 opacity-60" aria-hidden />
+    <section ref={ref} id="problem" aria-labelledby="problem-title" className="relative overflow-hidden bg-cream py-28 text-ink sm:py-40">
+      <div className="grid-light pointer-events-none absolute inset-0" aria-hidden />
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
-        {variant === "full" && <Tag index="01" label="The problem" />}
+        {variant === "full" && <Tag index="01" label="The problem" dark />}
 
-        <h2 id="problem-title" className="display mt-8 max-w-5xl text-[clamp(2.3rem,6.4vw,5.4rem)] text-cream">
+        <h2 id="problem-title" className="display mt-8 max-w-5xl text-[clamp(2.3rem,6.4vw,5.4rem)] text-ink">
           <Words text="When abundance" />
           <br />
           <Words text="becomes" delay={0.25} />{" "}
@@ -191,17 +191,17 @@ export function Problem({ variant = "full" }: { variant?: "full" | "teaser" }) {
         </h2>
 
         <Reveal delay={0.2}>
-          <p className="mt-7 max-w-2xl text-[15.5px] leading-relaxed text-cream/60 sm:text-lg">
+          <p className="mt-7 max-w-2xl text-[15.5px] leading-relaxed text-ink/65 sm:text-lg">
             Farmers can grow valuable crops — and still lose on the harvest.
             When supply arrives faster than the market can absorb it, good
-            produce loses its commercial value. <span className="text-cream">The problem
+            produce loses its commercial value. <span className="font-semibold text-ink">The problem
             is not always production. Often it is what happens after harvest.</span>
           </p>
         </Reveal>
 
         {/* Transformation */}
         <div className="relative mt-16 sm:mt-24">
-          <div className="absolute top-1/2 right-0 left-0 hidden h-px bg-cream/10 lg:block" aria-hidden>
+          <div className="absolute top-1/2 right-0 left-0 hidden h-px bg-ink/15 lg:block" aria-hidden>
             <motion.div className="h-full origin-left bg-gradient-to-r from-leaf via-mango to-ember" style={{ scaleX: lineW, width: "100%" }} />
           </div>
           <div className="grid gap-10 lg:grid-cols-3 lg:gap-8">
@@ -234,7 +234,7 @@ export function Problem({ variant = "full" }: { variant?: "full" | "teaser" }) {
                     <p className="display-tight text-2xl text-cream sm:text-[1.7rem]">{s.k}</p>
                   </div>
                 </div>
-                <p className="mt-4 max-w-sm text-[14px] leading-relaxed text-cream/55">{s.d}</p>
+                <p className="mt-4 max-w-sm text-[14px] leading-relaxed text-ink/60">{s.d}</p>
                 {i < 2 && (
                   <span className="absolute top-[38%] -right-5 z-10 hidden h-10 w-10 items-center justify-center rounded-full border border-cream/15 bg-ink text-mango lg:flex" aria-hidden>
                     ↓
@@ -249,9 +249,9 @@ export function Problem({ variant = "full" }: { variant?: "full" | "teaser" }) {
         {variant === "full" && (
         <div className="mt-20 sm:mt-28">
           <Reveal>
-            <p className="eyebrow text-cream/45">Why surplus happens — even after a great harvest</p>
+            <p className="eyebrow text-ink/50">Why surplus happens — even after a great harvest</p>
           </Reveal>
-          <div className="mt-8 grid gap-px overflow-hidden rounded-sm border border-cream/10 bg-cream/10 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-px overflow-hidden rounded-sm border border-ink/12 bg-ink/12 sm:grid-cols-2 lg:grid-cols-3">
             {CAUSES.map((c, i) => (
               <motion.div
                 key={c.k}
@@ -259,11 +259,11 @@ export function Problem({ variant = "full" }: { variant?: "full" | "teaser" }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.6, ease: EASE, delay: i * 0.06 }}
-                className="bg-ink p-6 sm:p-7"
+                className="bg-cream p-6 transition-colors duration-300 hover:bg-paper sm:p-7"
               >
-                <p className="font-mono text-[10px] tracking-[0.22em] text-mango/80">0{i + 1}</p>
-                <p className="display-tight mt-3 text-lg text-cream">{c.k}</p>
-                <p className="mt-2 text-[13.5px] leading-relaxed text-cream/55">{c.d}</p>
+                <p className="font-mono text-[10px] tracking-[0.22em] text-ember">0{i + 1}</p>
+                <p className="display-tight mt-3 text-lg text-ink">{c.k}</p>
+                <p className="mt-2 text-[13.5px] leading-relaxed text-ink/60">{c.d}</p>
               </motion.div>
             ))}
           </div>
@@ -271,7 +271,9 @@ export function Problem({ variant = "full" }: { variant?: "full" | "teaser" }) {
         )}
 
         {/* Surplus ≠ Waste */}
-        <div className="mt-24 border-t border-cream/10 pt-16 text-center sm:mt-32 sm:pt-24">
+        <div className="relative mt-24 overflow-hidden rounded-sm bg-pine px-6 py-16 text-center shadow-[0_48px_90px_-48px_rgba(6,10,7,0.6)] sm:mt-32 sm:px-16 sm:py-20">
+          <div className="grid-dark pointer-events-none absolute inset-0 opacity-40" aria-hidden />
+          <div className="relative">
           <Reveal>
             <p className="eyebrow text-cream/45">The central idea</p>
           </Reveal>
@@ -291,13 +293,14 @@ export function Problem({ variant = "full" }: { variant?: "full" | "teaser" }) {
             <Reveal delay={0.35}>
               <a
                 href="#/approach"
-                className="group mt-8 inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] text-mango uppercase transition-colors hover:text-cream"
+                className="group mt-8 inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] text-mango uppercase transition-colors hover:text-leaf"
               >
                 Explore the full story — why abundance becomes loss
                 <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
               </a>
             </Reveal>
           )}
+          </div>
         </div>
       </div>
     </section>

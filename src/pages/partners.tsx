@@ -10,6 +10,7 @@ export function PartnersPage() {
   return (
     <>
       <PageHero
+        tone="pine"
         label="Partners"
         title="Who WNA works with."
         accentWords={["works with."]}

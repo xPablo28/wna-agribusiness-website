@@ -56,17 +56,17 @@ export function Nav() {
       />
       <header
         className={cn(
-          "fixed inset-x-0 top-0 z-50 transition-all duration-500",
-          scrolled ? "glass-dark border-b border-cream/10" : "border-b border-transparent",
+          "fixed inset-x-0 top-0 z-50 backdrop-blur-md transition-all duration-500",
+          scrolled ? "border-b border-cream/10 bg-wna-deep/95" : "bg-wna-deep/35",
         )}
       >
-        <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 sm:px-8">
+        <div className="mx-auto flex h-[64px] max-w-[1440px] items-center justify-between px-5 sm:h-[72px] sm:px-8">
           <a
             href={routeHref("/")}
             aria-label="WNA — Waste Not Agro Solutions, home"
-            className="rounded-md transition-opacity duration-300 hover:opacity-90"
+            className="mr-2 shrink-0 rounded-md transition-opacity duration-300 hover:opacity-85"
           >
-            <WnaLogo eager variant="mark" />
+            <WnaLogo eager variant="mark" imgClassName="drop-shadow-[0_1px_10px_rgba(6,10,7,0.55)]" />
           </a>
 
           <nav aria-label="Primary" className="hidden items-center gap-7 lg:flex">
@@ -85,8 +85,8 @@ export function Nav() {
                   {l.label}
                   <span
                     className={cn(
-                      "absolute -bottom-0.5 left-0 h-px bg-mango transition-all duration-300",
-                      active ? "w-full" : "w-0 group-hover:w-full",
+                      "absolute -bottom-0.5 left-0 h-px transition-all duration-300",
+                      active ? "w-full bg-leaf" : "w-0 bg-mango group-hover:w-full",
                     )}
                   />
                 </a>
@@ -127,9 +127,9 @@ export function Nav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35 }}
-            className="fixed inset-0 z-[70] flex flex-col bg-ink/97 backdrop-blur-xl"
+            className="fixed inset-0 z-[70] flex flex-col bg-wna-deep/97 backdrop-blur-xl"
           >
-            <div className="flex h-[72px] items-center justify-between px-5 sm:px-8">
+            <div className="flex h-[64px] items-center justify-between px-5 sm:h-[72px] sm:px-8">
               <WnaLogo variant="mark" />
               <button
                 ref={closeRef}

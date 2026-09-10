@@ -12,6 +12,7 @@ export function StoryPage() {
   return (
     <>
       <PageHero
+        tone="pine"
         label="Our Story"
         title="Built by people who saw the loss."
         accentWords={["the loss."]}

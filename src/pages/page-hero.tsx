@@ -2,6 +2,7 @@ import { ArrowLeft } from "lucide-react";
 import { Reveal, Words } from "../components/ui";
 import { NAV_LINKS } from "../data";
 import { routeHref, useRoute, type PagePath } from "../router";
+import { cn } from "../utils/cn";
 
 /* ------------------------------------------------------------------
    PageHero — the opening band of every interior page. Dark, typographic,
@@ -14,19 +15,34 @@ export function PageHero({
   title,
   accentWords = [],
   lead,
+  tone = "ink",
   status = "WASTE NOT AGRO SOLUTIONS",
 }: {
   label: string;
   title: string;
   accentWords?: string[];
   lead: string;
+  /** "ink" = near-black (operations/products) · "pine" = deep WNA green (identity pages) */
+  tone?: "ink" | "pine";
   status?: string;
 }) {
   const route = useRoute();
   return (
-    <section aria-labelledby="page-hero-title" className="relative overflow-hidden bg-ink pt-[128px] pb-16 sm:pt-[152px] sm:pb-20">
+    <section
+      aria-labelledby="page-hero-title"
+      className={cn(
+        "relative overflow-hidden pt-[116px] pb-16 sm:pt-[144px] sm:pb-20",
+        tone === "pine" ? "bg-gradient-to-b from-wna-deep via-pine to-pine" : "bg-ink",
+      )}
+    >
       <div className="grid-dark pointer-events-none absolute inset-0 opacity-50" aria-hidden />
-      <div className="pointer-events-none absolute top-1/4 right-[-10%] h-[42vmin] w-[42vmin] rounded-full bg-wna/[0.09] blur-[100px]" aria-hidden />
+      <div
+        className={cn(
+          "pointer-events-none absolute top-1/4 right-[-10%] h-[42vmin] w-[42vmin] rounded-full blur-[100px]",
+          tone === "pine" ? "bg-leaf/[0.07]" : "bg-wna/[0.09]",
+        )}
+        aria-hidden
+      />
 
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
         <div className="flex items-center justify-between gap-6">

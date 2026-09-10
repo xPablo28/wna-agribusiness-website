@@ -12,6 +12,7 @@ export function ApproachPage() {
   return (
     <>
       <PageHero
+        tone="pine"
         label="Our Approach"
         title="When abundance becomes loss."
         accentWords={["loss."]}

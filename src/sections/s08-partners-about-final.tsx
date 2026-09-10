@@ -191,10 +191,10 @@ export function Partners() {
 
 export function About() {
   return (
-    <section id="about" aria-labelledby="about-title" className="relative overflow-hidden border-t border-cream/10 bg-ink py-24 sm:py-36">
+    <section id="about" aria-labelledby="about-title" className="relative overflow-hidden bg-cream py-24 text-ink sm:py-36">
       <div className="relative mx-auto max-w-[1440px] px-5 text-center sm:px-8">
         <Reveal>
-          <p className="eyebrow text-cream/45">The company</p>
+          <p className="eyebrow text-ink/50">The company</p>
         </Reveal>
         <motion.div
           initial={{ opacity: 0, y: 24, scale: 0.96 }}
@@ -203,21 +203,21 @@ export function About() {
           transition={{ duration: 0.9, ease: EASE }}
           className="mt-10 flex justify-center"
         >
-          <WnaLogo glow imgClassName="h-32 w-auto sm:h-44" />
+          <WnaLogo eager imgClassName="h-28 w-auto sm:h-40" />
         </motion.div>
-        <h2 id="about-title" className="display mx-auto mt-10 max-w-5xl text-[clamp(2rem,6vw,4.8rem)] text-cream">
+        <h2 id="about-title" className="display mx-auto mt-10 max-w-5xl text-[clamp(2rem,6vw,4.8rem)] text-ink">
           <Words text="Waste Not Agro Solutions" />
         </h2>
         <Reveal delay={0.15}>
-          <p className="mx-auto mt-8 max-w-2xl text-[15.5px] leading-relaxed text-cream/65 sm:text-lg">
+          <p className="mx-auto mt-8 max-w-2xl text-[15.5px] leading-relaxed text-ink/65 sm:text-lg">
             {COMPANY.description}
           </p>
         </Reveal>
         <Reveal delay={0.25}>
-          <p className="display-tight mx-auto mt-10 max-w-2xl text-[clamp(1.4rem,3.4vw,2.2rem)] text-cream">
+          <p className="display-tight mx-auto mt-10 max-w-2xl text-[clamp(1.4rem,3.4vw,2.2rem)] text-ink">
             Our starting point is <span className="text-mango">mango.</span>
             <br />
-            Our ambition is <span className="text-mango">much bigger.</span>
+            Our ambition is <span className="text-ember">much bigger.</span>
           </p>
         </Reveal>
       </div>

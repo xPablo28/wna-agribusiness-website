@@ -142,7 +142,7 @@ function FounderCard({ f, i }: { f: (typeof FOUNDERS)[number]; i: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.8, ease: EASE, delay: i * 0.1 }}
-      className="group flex flex-col overflow-hidden rounded-sm border border-cream/12 bg-cream/[0.03]"
+      className="group flex flex-col overflow-hidden rounded-sm border border-ink/12 bg-cream transition-shadow duration-500 hover:shadow-[0_24px_60px_-32px_rgba(6,10,7,0.45)]"
     >
       {/* Photo slot — drop a file at public/images/founders/founder-1.jpg (see src/data.ts) */}
       <div className="relative">
@@ -156,36 +156,36 @@ function FounderCard({ f, i }: { f: (typeof FOUNDERS)[number]; i: number }) {
           />
         ) : (
           <div
-            className="grid aspect-[4/5] w-full place-items-center border-b border-dashed border-mango/30 bg-pine/40"
+            className="grid aspect-[4/5] w-full place-items-center border-b border-dashed border-ember/40 bg-ink/[0.04]"
             role="img"
             aria-label={`Photo placeholder for ${f.name} — add a real photograph to replace this slot`}
           >
             <span className="flex flex-col items-center gap-3 text-center">
-              <User className="h-10 w-10 text-cream/25" strokeWidth={1.25} />
-              <span className="font-mono text-[10px] tracking-[0.22em] text-cream/40 uppercase">
+              <User className="h-10 w-10 text-ink/30" strokeWidth={1.25} />
+              <span className="font-mono text-[10px] tracking-[0.22em] text-ink/50 uppercase">
                 [FOUNDER {i + 1} PHOTO]
               </span>
-              <span className="font-mono text-[9px] tracking-[0.14em] text-cream/25 uppercase">
+              <span className="font-mono text-[9px] tracking-[0.14em] text-ink/40 uppercase">
                 public/images/founders/founder-{i + 1}.jpg
               </span>
             </span>
           </div>
         )}
-        <span className="display absolute top-4 right-4 text-4xl text-cream/25" aria-hidden>
+        <span className={`display absolute top-4 right-4 text-4xl ${hasPhoto ? "text-cream/70" : "text-ink/25"}`} aria-hidden>
           0{i + 1}
         </span>
       </div>
 
       <div className="flex flex-1 flex-col p-7 sm:p-8">
-        <p className="display-tight text-[clamp(1.4rem,3vw,1.8rem)] text-cream">{f.name}</p>
-        <p className="mt-1.5 font-mono text-[10.5px] tracking-[0.22em] text-mango uppercase">{f.role}</p>
-        <p className="mt-5 text-[14px] leading-relaxed text-cream/60">
+        <p className="display-tight text-[clamp(1.4rem,3vw,1.8rem)] text-ink">{f.name}</p>
+        <p className="mt-1.5 font-mono text-[10.5px] tracking-[0.22em] text-ember uppercase">{f.role}</p>
+        <p className="mt-5 text-[14px] leading-relaxed text-ink/65">
           {hasBio ? f.bio : "[FOUNDER BIO — a short, human paragraph will live here.]"}
         </p>
         {hasQuote && (
-          <blockquote className="mt-6 border-l-2 border-mango/60 pl-5">
-            <Quote className="h-4 w-4 text-mango/70" aria-hidden />
-            <p className="display-tight mt-2 text-[clamp(1.05rem,2.2vw,1.3rem)] leading-snug text-cream/90">
+          <blockquote className="mt-6 border-l-2 border-wna/60 pl-5">
+            <Quote className="h-4 w-4 text-wna" aria-hidden />
+            <p className="display-tight mt-2 text-[clamp(1.05rem,2.2vw,1.3rem)] leading-snug text-ink/85">
               “{f.quote}”
             </p>
           </blockquote>
@@ -201,11 +201,11 @@ export function Story() {
   );
 
   return (
-    <section id="story" aria-labelledby="story-title" className="relative overflow-hidden bg-ink py-28 sm:py-40">
-      <div className="grid-dark pointer-events-none absolute inset-0 opacity-50" aria-hidden />
+    <section id="story" aria-labelledby="story-title" className="relative overflow-hidden bg-paper py-28 text-ink sm:py-40">
+      <div className="grid-light pointer-events-none absolute inset-0" aria-hidden />
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
-        <Tag index="01" label="The people behind WNA" />
-        <h2 id="story-title" className="display mt-8 max-w-5xl text-[clamp(2.2rem,6vw,4.8rem)] text-cream">
+        <Tag index="01" label="The people behind WNA" dark />
+        <h2 id="story-title" className="display mt-8 max-w-5xl text-[clamp(2.2rem,6vw,4.8rem)] text-ink">
           <Words text="The people" />
           <br />
           <Words text="behind WNA." delay={0.25} accentWords={["WNA."]} />
@@ -215,19 +215,19 @@ export function Story() {
           {/* Narrative spine */}
           <div>
             <Reveal>
-              <p className="display-tight text-[clamp(1.5rem,3.6vw,2.3rem)] leading-tight text-cream">
+              <p className="display-tight text-[clamp(1.5rem,3.6vw,2.3rem)] leading-tight text-ink">
                 Every company starts with a problem someone refuses to ignore.
               </p>
             </Reveal>
             <Reveal delay={0.12}>
-              <p className="mt-5 max-w-md text-[15px] leading-relaxed text-cream/60">
+              <p className="mt-5 max-w-md text-[15px] leading-relaxed text-ink/65">
                 {COMPANY.fullName} began with a simple question:{" "}
-                <span className="text-mango">what happens to value when the market says
+                <span className="font-semibold text-ember">what happens to value when the market says
                 “not today”?</span>
               </p>
             </Reveal>
 
-            <ol className="relative mt-12 space-y-0 border-l border-cream/15 pl-8" aria-label="How WNA came together">
+            <ol className="relative mt-12 space-y-0 border-l border-ink/15 pl-8" aria-label="How WNA came together">
               {NARRATIVE.map((n, i) => (
                 <motion.li
                   key={n.k}
@@ -238,19 +238,19 @@ export function Story() {
                   className="relative py-4 last:pb-0"
                 >
                   <span
-                    className={`absolute top-1/2 -left-[38px] grid h-5 w-5 -translate-y-1/2 place-items-center rounded-full border ${n.k === "WNA" ? "border-mango bg-mango" : "border-cream/25 bg-ink"}`}
+                    className={`absolute top-1/2 -left-[38px] grid h-5 w-5 -translate-y-1/2 place-items-center rounded-full border ${n.k === "WNA" ? "border-ember bg-ember" : "border-ink/25 bg-paper"}`}
                     aria-hidden
                   >
-                    <span className={`h-1.5 w-1.5 rounded-full ${n.k === "WNA" ? "bg-ink" : "bg-mango/70"}`} />
+                    <span className={`h-1.5 w-1.5 rounded-full ${n.k === "WNA" ? "bg-cream" : "bg-wna"}`} />
                   </span>
-                  <p className={`font-mono text-[10.5px] tracking-[0.24em] uppercase ${n.k === "WNA" ? "text-mango" : "text-cream/40"}`}>
+                  <p className={`font-mono text-[10.5px] tracking-[0.24em] uppercase ${n.k === "WNA" ? "text-ember" : "text-ink/45"}`}>
                     {n.k}
                   </p>
-                  <p className={`mt-1.5 text-[15px] leading-relaxed ${n.k === "WNA" ? "display-tight text-xl text-cream" : "text-cream/70"}`}>
+                  <p className={`mt-1.5 text-[15px] leading-relaxed ${n.k === "WNA" ? "display-tight text-xl text-ink" : "text-ink/70"}`}>
                     {n.d}
                   </p>
                   {i < NARRATIVE.length - 1 && (
-                    <ArrowRight className="absolute top-1/2 -right-2 hidden h-4 w-4 rotate-90 text-cream/20 lg:block" aria-hidden />
+                    <ArrowRight className="absolute top-1/2 -right-2 hidden h-4 w-4 rotate-90 text-ink/20 lg:block" aria-hidden />
                   )}
                 </motion.li>
               ))}
@@ -260,11 +260,11 @@ export function Story() {
           {/* Founder cards */}
           <div>
             {anyPlaceholder && (
-              <div className="mb-6 rounded-sm border border-dashed border-mango/40 bg-mango/[0.05] p-4">
-                <p className="font-mono text-[10px] leading-relaxed tracking-[0.14em] text-mango/90 uppercase">
+              <div className="mb-6 rounded-sm border border-dashed border-ember/50 bg-ember/[0.06] p-4">
+                <p className="font-mono text-[10px] leading-relaxed tracking-[0.14em] text-ember/90 uppercase">
                   Editorial note — WNA has three founders; details are pending confirmation.
-                  Replace the placeholders in <span className="text-cream">src/data.ts → FOUNDERS</span>{" "}
-                  and the photos in <span className="text-cream">public/images/founders/</span> before launch.
+                  Replace the placeholders in <span className="font-semibold text-ink">src/data.ts → FOUNDERS</span>{" "}
+                  and the photos in <span className="font-semibold text-ink">public/images/founders/</span> before launch.
                   Nothing on this page is invented.
                 </p>
               </div>

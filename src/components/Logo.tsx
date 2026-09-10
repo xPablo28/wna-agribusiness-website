@@ -2,44 +2,34 @@ import { useState } from "react";
 import { cn } from "../utils/cn";
 
 /* ------------------------------------------------------------------
-   OFFICIAL WNA LOGO — USED EXACTLY AS SUPPLIED, NEVER MODIFIED.
+   OFFICIAL WNA LOGO — NEVER REDRAWN, RECOLORED OR STRETCHED.
 
-   Sources, tried in order:
-     1. LOCAL  → public/logo/wna-logo.jpg  (byte-identical copy of the
-                  official artwork, original JPEG — no redraw, recolor,
-                  crop or stretch anywhere in the pipeline)
-     2. REMOTE → WNA_LOGO_REMOTE_URL        (public image URL if ever needed)
+     public/logo/wna-logo.jpg   the official artwork exactly as supplied
+     public/logo/wna-logo.png   the SAME pixels; only the flat surrounding
+                                field is keyed to transparency (programmatic
+                                background removal, no artwork alteration)
 
-   PRESENTATION: the supplied logo sits on its own white field (#f7f7f7).
-   The plate color matches that field exactly and padding is minimal, so
-   no "floating white card" edge is visible against dark sections — the
-   artwork simply reads as the logo itself.
+   Presentation: no plate, no white card, no shadow — the mark sits
+   directly in the navigation so it reads as part of the header. On dark
+   surfaces its bright greens and amber carry the contrast; on cream the
+   former field tone disappears into the background seamlessly.
 ------------------------------------------------------------------- */
-export const WNA_LOGO_LOCAL = "/logo/wna-logo.jpg";
+export const WNA_LOGO_LOCAL = "/logo/wna-logo.png";
 /** Optional: paste a public URL to the official logo image here. */
 export const WNA_LOGO_REMOTE_URL = "";
 
-/** Exact corner colour of the supplied artwork — seam-free backdrop. */
-const LOGO_FIELD = "#f7f7f7";
+const SOURCES = [WNA_LOGO_LOCAL, "/logo/wna-logo.jpg", WNA_LOGO_REMOTE_URL].filter(Boolean);
 
-const SOURCES = [WNA_LOGO_LOCAL, WNA_LOGO_REMOTE_URL].filter(Boolean);
-
-function PendingLogo({ compact }: { compact?: boolean }) {
+function PendingLogo() {
   return (
     <span
-      className={cn(
-        "inline-flex flex-col items-center justify-center rounded-md border border-dashed border-mango/60 bg-[#f7f7f7] text-center leading-none",
-        compact ? "px-2.5 py-1.5" : "px-4 py-3",
-      )}
+      className="inline-flex flex-col items-center justify-center rounded-md border border-dashed border-mango/60 bg-[#f7f7f7] px-4 py-3 text-center leading-none"
       title="Official WNA logo pending — save it as public/logo/wna-logo.jpg"
     >
-      <span
-        className={cn("font-display font-black tracking-[0.06em] text-wna-deep", compact ? "text-[15px]" : "text-[24px]")}
-        style={{ fontStretch: "112%" }}
-      >
+      <span className="font-display text-[24px] font-black tracking-[0.06em] text-wna-deep" style={{ fontStretch: "112%" }}>
         WNA
       </span>
-      {import.meta.env.DEV && !compact && (
+      {import.meta.env.DEV && (
         <span className="mt-1 font-mono text-[8px] tracking-[0.2em] text-ink/50 uppercase">
           Official logo pending
         </span>
@@ -53,41 +43,25 @@ export function WnaLogo({
   imgClassName,
   variant = "full",
   eager = false,
-  glow = false,
-  ring = false,
 }: {
   className?: string;
   imgClassName?: string;
   variant?: "full" | "mark";
   eager?: boolean;
-  /** Warm mango glow behind the artwork for feature placements. */
-  glow?: boolean;
-  /** Hairline separation for placements on light/cream surfaces. */
-  ring?: boolean;
 }) {
   const [srcIndex, setSrcIndex] = useState(0);
-  const compact = variant === "mark";
   const src = SOURCES[srcIndex];
 
   if (!src) {
     return (
       <span className={cn("inline-flex items-center", className)}>
-        <PendingLogo compact={compact} />
+        <PendingLogo />
       </span>
     );
   }
 
   return (
-    <span
-      className={cn(
-        "inline-flex items-center overflow-hidden rounded-md",
-        compact ? "px-1.5 py-1" : "px-2.5 py-1.5",
-        ring && "ring-1 ring-ink/10",
-        glow && "shadow-[0_0_64px_-16px_rgba(242,164,28,0.45)]",
-        className,
-      )}
-      style={{ background: LOGO_FIELD }}
-    >
+    <span className={cn("inline-flex items-center", className)}>
       <img
         key={src}
         src={src}
@@ -97,8 +71,8 @@ export function WnaLogo({
         onError={() => setSrcIndex((i) => i + 1)}
         draggable={false}
         className={cn(
-          "w-auto object-contain",
-          compact ? "h-9" : "h-16",
+          "w-auto select-none object-contain",
+          variant === "mark" ? "h-8 sm:h-9" : "h-16",
           imgClassName,
         )}
       />

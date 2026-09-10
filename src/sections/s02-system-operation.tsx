@@ -10,8 +10,8 @@ import { cn } from "../utils/cn";
 
 export function BigQuestion() {
   return (
-    <section aria-labelledby="question-title" className="grain relative overflow-hidden bg-[#040604] py-28 sm:py-40">
-      <div className="pointer-events-none absolute top-1/2 left-1/2 h-[46vmin] w-[70vmin] -translate-x-1/2 -translate-y-1/2 rounded-full bg-mango/[0.08] blur-[110px]" aria-hidden />
+    <section aria-labelledby="question-title" className="grain relative overflow-hidden bg-pine py-28 sm:py-40">
+      <div className="pointer-events-none absolute top-1/2 left-1/2 h-[46vmin] w-[70vmin] -translate-x-1/2 -translate-y-1/2 rounded-full bg-leaf/[0.07] blur-[110px]" aria-hidden />
       <div className="relative mx-auto max-w-[1440px] px-5 text-center sm:px-8">
         <Tag index="02" label="The big question" className="justify-center" />
         <h2 id="question-title" className="display mt-8 text-[clamp(2.4rem,7vw,6rem)] text-cream">
