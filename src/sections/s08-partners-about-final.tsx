@@ -307,7 +307,7 @@ export function Footer() {
         <div className="flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between">
           {/* Brand */}
           <div className="max-w-sm">
-            <WnaLogo />
+            <WnaLogo tile />
             <p className="display-tight mt-6 text-lg text-cream">
               WNA — {COMPANY.fullName}
             </p>

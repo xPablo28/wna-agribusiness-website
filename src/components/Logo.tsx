@@ -9,10 +9,11 @@ import { cn } from "../utils/cn";
                                 field is keyed to transparency (programmatic
                                 background removal, no artwork alteration)
 
-   Presentation: no plate, no white card, no shadow — the mark sits
-   directly in the navigation so it reads as part of the header. On dark
-   surfaces its bright greens and amber carry the contrast; on cream the
-   former field tone disappears into the background seamlessly.
+   Presentation: on light surfaces the mark sits bare (its dark greens read
+   perfectly on cream). On dark chrome (nav, menu, footer) it gets one
+   minimal concession — a tight, flat cream badge with ~6px of padding
+   and no shadow — so the wordmark stays legible. There is no larger
+   white plate, card or frame anywhere.
 ------------------------------------------------------------------- */
 export const WNA_LOGO_LOCAL = "/logo/wna-logo.png";
 /** Optional: paste a public URL to the official logo image here. */
@@ -43,11 +44,15 @@ export function WnaLogo({
   imgClassName,
   variant = "full",
   eager = false,
+  tile = false,
 }: {
   className?: string;
   imgClassName?: string;
   variant?: "full" | "mark";
   eager?: boolean;
+  /** Cream badge for dark surfaces (nav, menu, footer) — tight and flat,
+   *  no shadow: keeps the wordmark legible without a white card. */
+  tile?: boolean;
 }) {
   const [srcIndex, setSrcIndex] = useState(0);
   const src = SOURCES[srcIndex];
@@ -61,7 +66,13 @@ export function WnaLogo({
   }
 
   return (
-    <span className={cn("inline-flex items-center", className)}>
+    <span
+      className={cn(
+        "inline-flex items-center",
+        tile && "rounded-md bg-cream px-1.5 py-1",
+        className,
+      )}
+    >
       <img
         key={src}
         src={src}
@@ -72,7 +83,7 @@ export function WnaLogo({
         draggable={false}
         className={cn(
           "w-auto select-none object-contain",
-          variant === "mark" ? "h-8 sm:h-9" : "h-16",
+          variant === "mark" ? "h-9 sm:h-10" : "h-16",
           imgClassName,
         )}
       />

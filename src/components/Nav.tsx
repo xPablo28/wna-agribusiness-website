@@ -66,7 +66,7 @@ export function Nav() {
             aria-label="WNA — Waste Not Agro Solutions, home"
             className="mr-2 shrink-0 rounded-md transition-opacity duration-300 hover:opacity-85"
           >
-            <WnaLogo eager variant="mark" imgClassName="drop-shadow-[0_1px_10px_rgba(6,10,7,0.55)]" />
+            <WnaLogo eager variant="mark" tile />
           </a>
 
           <nav aria-label="Primary" className="hidden items-center gap-7 lg:flex">
@@ -130,7 +130,7 @@ export function Nav() {
             className="fixed inset-0 z-[70] flex flex-col bg-wna-deep/97 backdrop-blur-xl"
           >
             <div className="flex h-[64px] items-center justify-between px-5 sm:h-[72px] sm:px-8">
-              <WnaLogo variant="mark" />
+              <WnaLogo variant="mark" tile />
               <button
                 ref={closeRef}
                 type="button"
