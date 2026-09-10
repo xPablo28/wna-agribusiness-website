@@ -31,7 +31,7 @@ export function BusinessModel() {
   return (
     <section className="relative overflow-hidden bg-paper py-28 text-ink sm:py-40">
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
-        <Tag index="14" label="Business model" dark />
+        <Tag index="03" label="Business model" dark />
         <h2 className="display mt-8 max-w-4xl text-[clamp(2.2rem,6vw,5rem)]">
           <Words text="How WNA" /> <Words text="creates value" delay={0.2} accentWords={["value"]} accentClass="text-wna" />
         </h2>
@@ -123,7 +123,7 @@ export function WhyWna() {
     <section className="relative overflow-hidden bg-wna-deep py-28 text-cream sm:py-40">
       <div className="pointer-events-none absolute -bottom-52 -left-40 h-[560px] w-[560px] rounded-full bg-ink/25 blur-[140px]" />
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
-        <Tag index="15" label="Why WNA" />
+        <Tag index="02" label="Why partner with WNA" />
         <h2 className="display mt-8 max-w-6xl text-[clamp(2rem,5.6vw,4.8rem)]">
           <Words text="We are building the infrastructure" />
           <br />
@@ -190,7 +190,7 @@ export function Scale() {
     <section className="relative overflow-hidden bg-ink py-28 sm:py-40">
       <div className="grid-dark pointer-events-none absolute inset-0 opacity-50" />
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
-        <Tag index="16" label="Scale" />
+        <Tag index="03" label="Scale" />
         <h2 className="display mt-8 max-w-4xl text-[clamp(2.2rem,6vw,5rem)] text-cream">
           <Words text="Rooted here." /> <Words text="Built to spread." delay={0.25} accentWords={["spread."]} />
         </h2>

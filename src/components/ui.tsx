@@ -130,7 +130,7 @@ export function StatusBadge({ status, dark = false }: { status: Status; dark?: b
 
 export function PrimaryCta({
   children,
-  href = "#approach",
+  href = "#/approach",
   className,
 }: {
   children: ReactNode;
@@ -156,7 +156,7 @@ export function PrimaryCta({
 
 export function GhostCta({
   children,
-  href = "#partners",
+  href = "#/partners",
   className,
   dark = false,
 }: {

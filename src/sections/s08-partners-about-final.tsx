@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { WnaLogo } from "../components/Logo";
 import { EASE, GhostCta, PrimaryCta, Reveal, Tag, Words } from "../components/ui";
 import { COMPANY, NAV_LINKS, isPlaceholder } from "../data";
+import { routeHref, type PagePath } from "../router";
 import { cn } from "../utils/cn";
 
 /* ============================== 17 · PARTNERS ==============================
@@ -123,7 +124,7 @@ export function Partners() {
   return (
     <section id="partners" aria-labelledby="partners-title" className="relative overflow-hidden bg-cream py-28 text-ink sm:py-40">
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
-        <Tag index="17" label="Partners" dark />
+        <Tag index="01" label="Partners" dark />
         <h2 id="partners-title" className="display mt-8 max-w-4xl text-[clamp(2.2rem,6vw,5rem)]">
           <Words text="Three ways in." />{" "}
           <Words text="One network." delay={0.25} accentWords={["network."]} accentClass="text-ember" />
@@ -171,11 +172,12 @@ export function Partners() {
         <AnimatePresence mode="wait">
           <motion.div
             key={path}
+            id="enquiry"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.45, ease: EASE }}
-            className="mt-6"
+            className="mt-6 scroll-mt-28"
           >
             <PartnerForm path={path} />
           </motion.div>
@@ -192,7 +194,7 @@ export function About() {
     <section id="about" aria-labelledby="about-title" className="relative overflow-hidden border-t border-cream/10 bg-ink py-24 sm:py-36">
       <div className="relative mx-auto max-w-[1440px] px-5 text-center sm:px-8">
         <Reveal>
-          <Tag index="18" label="About WNA" className="justify-center" />
+          <p className="eyebrow text-cream/45">The company</p>
         </Reveal>
         <motion.div
           initial={{ opacity: 0, y: 24, scale: 0.96 }}
@@ -201,11 +203,7 @@ export function About() {
           transition={{ duration: 0.9, ease: EASE }}
           className="mt-10 flex justify-center"
         >
-          <WnaLogo
-            glow
-            imgClassName="h-36 w-auto sm:h-48"
-            frameClassName="rounded-[1.75rem] px-8 py-5"
-          />
+          <WnaLogo glow imgClassName="h-32 w-auto sm:h-44" />
         </motion.div>
         <h2 id="about-title" className="display mx-auto mt-10 max-w-5xl text-[clamp(2rem,6vw,4.8rem)] text-cream">
           <Words text="Waste Not Agro Solutions" />
@@ -227,12 +225,15 @@ export function About() {
   );
 }
 
-/* ============================== 19 · FINAL CTA ============================== */
+/* ============================== FINAL CTA (shared band) =========================
+   Full size closes the homepage; compact closes every other page.               */
 
-export function Final() {
+export function Final({ variant = "full", ctaHref = "#/partners" }: { variant?: "full" | "compact"; ctaHref?: string }) {
+  const compact = variant === "compact";
   return (
-    <section id="final" aria-labelledby="final-title" className="grain vignette relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-[#040604] px-5 py-32 text-center sm:px-8">
-      <div className="pointer-events-none absolute top-1/2 left-1/2 h-[60vmin] w-[80vmin] -translate-x-1/2 -translate-y-1/2 rounded-full bg-ember/[0.07] blur-[120px]" aria-hidden />
+    <section id="final" aria-labelledby="final-title" className={compact ? "grain relative overflow-hidden bg-[#040604] px-5 py-24 text-center sm:px-8 sm:py-32" : "grain vignette relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-[#040604] px-5 py-32 text-center sm:px-8"}>
+      <div className="pointer-events-none absolute top-1/2 left-1/2 h-[40vmin] w-[70vmin] -translate-x-1/2 -translate-y-1/2 rounded-full bg-ember/[0.07] blur-[120px]" aria-hidden />
+      {!compact && <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#040604]" aria-hidden />}
 
       <h2 id="final-title" className="sr-only">Partner with WNA</h2>
 
@@ -275,7 +276,7 @@ export function Final() {
         className="relative mt-14 flex flex-col items-center sm:mt-20"
       >
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-          <PrimaryCta href="#partners">Partner With WNA</PrimaryCta>
+          <PrimaryCta href={ctaHref}>Partner With WNA</PrimaryCta>
           <GhostCta href="#contact">Talk to WNA</GhostCta>
         </div>
       </motion.div>
@@ -287,7 +288,7 @@ export function Final() {
    Professional WNA footer — real links to real sections; contact/social
    entries render only when configured (see src/data.ts). */
 
-const FOOTER_NAV = [{ label: "Home", href: "#top" }, ...NAV_LINKS.map((l) => ({ label: l.label, href: l.href }))];
+const FOOTER_NAV = NAV_LINKS.map((l) => ({ label: l.label, href: routeHref(l.path as PagePath) }));
 
 const SOCIAL_LABELS: Record<string, string> = {
   linkedin: "LinkedIn",

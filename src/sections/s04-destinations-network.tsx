@@ -192,7 +192,7 @@ export function Destinations() {
     <section id="destinations" aria-labelledby="destinations-title" className="relative overflow-hidden bg-sand py-28 text-ink sm:py-40">
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
         <div className="flex flex-wrap items-end justify-between gap-6">
-          <Tag index="08" label="Value destinations" dark />
+          <Tag index="04" label="Value destinations" dark />
           <StatusBadge status="IN DEVELOPMENT" dark />
         </div>
 
@@ -248,7 +248,7 @@ export function Network() {
     <section id="network" aria-labelledby="network-title" className="relative overflow-hidden bg-ink py-28 sm:py-40">
       <div className="grid-dark pointer-events-none absolute inset-0 opacity-50" aria-hidden />
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
-        <Tag index="09" label="The WNA network" />
+        <Tag index="02" label="The WNA network" />
         <h2 id="network-title" className="display mt-8 max-w-5xl text-[clamp(2.2rem,6vw,5rem)] text-cream">
           <Words text="Between supply" />
           <br />
@@ -318,7 +318,7 @@ export function Network() {
           <Reveal delay={0.2}>
             <div className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-sm border border-mango/30 bg-mango/[0.06] p-5 sm:px-7">
               <p className="display-tight text-lg text-cream sm:text-xl">Where do you fit in this line?</p>
-              <a href="#partners" className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.2em] text-mango uppercase transition-colors hover:text-cream">
+              <a href="#/partners" className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.2em] text-mango uppercase transition-colors hover:text-cream">
                 Producer, buyer or partner — start here →
               </a>
             </div>

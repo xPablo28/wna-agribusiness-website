@@ -30,8 +30,6 @@
   --animate-flow: flow 2.2s linear infinite;
   --animate-spin-slow: spinSlow 26s linear infinite;
   --animate-pulse-ring: pulseRing 2.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-  --animate-logo-float: logoFloat 6s ease-in-out infinite;
-  --animate-logo-sheen: logoSheen 6s ease-in-out infinite;
 
   @keyframes spinSlow {
     to { transform: rotate(360deg); }
@@ -46,16 +44,6 @@
   @keyframes pulseRing {
     0% { transform: scale(0.6); opacity: 0.9; }
     100% { transform: scale(1.9); opacity: 0; }
-  }
-  @keyframes logoFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-9px); }
-  }
-  @keyframes logoSheen {
-    0% { transform: translateX(-140%) skewX(-18deg); opacity: 0; }
-    12% { opacity: 1; }
-    52% { transform: translateX(260%) skewX(-18deg); opacity: 1; }
-    62%, 100% { transform: translateX(260%) skewX(-18deg); opacity: 0; }
   }
 }
 
@@ -231,35 +219,7 @@ body {
   height: 1px;
 }
 
-/* ---------- Official logo presentation ----------
-   The artwork file itself is never altered. The plate, sheen and
-   glow below are presentation + lighting only. */
-.logo-plate {
-  position: relative;
-  isolation: isolate;
-}
-.logo-sheen::before {
-  content: "";
-  position: absolute;
-  top: -25%;
-  bottom: -25%;
-  left: 0;
-  width: 42%;
-  z-index: 3;
-  pointer-events: none;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(242, 164, 28, 0.14),
-    rgba(255, 255, 255, 0.38),
-    rgba(242, 164, 28, 0.14),
-    transparent
-  );
-  animation: logoSheen 6s ease-in-out infinite;
-}
-
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .scan-frame::after { animation: none; opacity: 0; }
-  .logo-sheen::before { animation: none; opacity: 0; }
 }

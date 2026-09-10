@@ -2,11 +2,13 @@ import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { CTA_LABEL, NAV_LINKS } from "../data";
+import { routeHref, useRoute, type PagePath } from "../router";
 import { cn } from "../utils/cn";
 import { WnaLogo } from "./Logo";
 import { EASE } from "./ui";
 
 export function Nav() {
+  const route = useRoute();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -19,6 +21,9 @@ export function Nav() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  /* Close the menu whenever the route changes. */
+  useEffect(() => setOpen(false), [route]);
 
   /* Lock page scroll while the mobile menu is open. */
   useEffect(() => {
@@ -57,33 +62,41 @@ export function Nav() {
       >
         <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 sm:px-8">
           <a
-            href="#top"
-            aria-label="WNA — Waste Not Agro Solutions, back to top"
-            className="rounded-lg transition-transform duration-300 hover:scale-[1.04]"
+            href={routeHref("/")}
+            aria-label="WNA — Waste Not Agro Solutions, home"
+            className="rounded-md transition-opacity duration-300 hover:opacity-90"
           >
-            <WnaLogo
-              eager
-              variant="mark"
-              imgClassName={cn(scrolled ? "h-10" : "h-12", "w-auto")}
-            />
+            <WnaLogo eager variant="mark" />
           </a>
 
-          <nav aria-label="Primary" className="hidden items-center gap-8 lg:flex">
-            {NAV_LINKS.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                className="group relative text-[13px] font-medium tracking-[0.08em] text-cream/70 uppercase transition-colors duration-300 hover:text-cream"
-              >
-                {l.label}
-                <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-mango transition-all duration-300 group-hover:w-full" />
-              </a>
-            ))}
+          <nav aria-label="Primary" className="hidden items-center gap-7 lg:flex">
+            {NAV_LINKS.map((l) => {
+              const active = route === l.path;
+              return (
+                <a
+                  key={l.path}
+                  href={routeHref(l.path as PagePath)}
+                  aria-current={active ? "page" : undefined}
+                  className={cn(
+                    "group relative py-2 text-[13px] font-medium tracking-[0.08em] uppercase transition-colors duration-300",
+                    active ? "text-cream" : "text-cream/65 hover:text-cream",
+                  )}
+                >
+                  {l.label}
+                  <span
+                    className={cn(
+                      "absolute -bottom-0.5 left-0 h-px bg-mango transition-all duration-300",
+                      active ? "w-full" : "w-0 group-hover:w-full",
+                    )}
+                  />
+                </a>
+              );
+            })}
           </nav>
 
           <div className="flex items-center gap-3">
             <a
-              href="#partners"
+              href={routeHref("/partners")}
               className="group hidden items-center gap-2 rounded-full bg-cream px-5 py-2.5 text-[12px] font-semibold tracking-[0.12em] text-ink uppercase transition-colors duration-300 hover:bg-mango sm:inline-flex"
             >
               {CTA_LABEL}
@@ -129,24 +142,35 @@ export function Nav() {
               </button>
             </div>
             <nav aria-label="Mobile" className="flex flex-1 flex-col justify-center gap-1 overflow-y-auto px-8 py-6">
-              {NAV_LINKS.map((l, i) => (
-                <motion.a
-                  key={l.href}
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  initial={{ opacity: 0, x: -32 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.08 + i * 0.07, duration: 0.6, ease: EASE }}
-                  className="group flex items-baseline gap-4 border-b border-cream/10 py-4"
-                >
-                  <span className="font-mono text-[11px] text-mango">0{i + 1}</span>
-                  <span className="display text-[clamp(2rem,9vw,3.4rem)] text-cream transition-colors group-hover:text-mango">
-                    {l.label}
-                  </span>
-                </motion.a>
-              ))}
+              {NAV_LINKS.map((l, i) => {
+                const active = route === l.path;
+                return (
+                  <motion.a
+                    key={l.path}
+                    href={routeHref(l.path as PagePath)}
+                    onClick={() => setOpen(false)}
+                    aria-current={active ? "page" : undefined}
+                    initial={{ opacity: 0, x: -32 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.06 + i * 0.06, duration: 0.6, ease: EASE }}
+                    className="group flex items-baseline gap-4 border-b border-cream/10 py-4"
+                  >
+                    <span className={cn("font-mono text-[11px]", active ? "text-mango" : "text-mango/50")}>
+                      0{i + 1}
+                    </span>
+                    <span
+                      className={cn(
+                        "display text-[clamp(1.7rem,8vw,3rem)] transition-colors group-hover:text-mango",
+                        active ? "text-mango" : "text-cream",
+                      )}
+                    >
+                      {l.label}
+                    </span>
+                  </motion.a>
+                );
+              })}
               <motion.a
-                href="#partners"
+                href={routeHref("/partners")}
                 onClick={() => setOpen(false)}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

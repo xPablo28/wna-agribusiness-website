@@ -14,7 +14,7 @@ export function WhyMatters() {
         <div className="absolute inset-0 bg-gradient-to-b from-pine via-pine/70 to-pine" />
       </div>
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
-        <Tag index="06" label="The strategic frame" />
+        <Tag index="01" label="Current focus vs broader opportunity" />
         <h2 id="scope-title" className="display mt-8 max-w-5xl text-[clamp(2.2rem,6.4vw,5.4rem)] text-cream">
           <Words text="Mango is where" />
           <br />
@@ -140,7 +140,7 @@ export function Product() {
     <section id="product" aria-labelledby="product-title" className="relative overflow-hidden bg-cream py-28 text-ink sm:py-40">
       <div className="pointer-events-none absolute -top-40 -right-40 h-[520px] w-[520px] rounded-full bg-mango/15 blur-[140px]" aria-hidden />
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
-        <Tag index="07" label="The product" dark />
+        <Tag index="02" label="Product development" dark />
 
         <div className="mt-8 flex flex-wrap items-end justify-between gap-6">
           <h2 id="product-title" className="display max-w-4xl text-[clamp(2.2rem,6.4vw,5.4rem)]">

@@ -85,8 +85,8 @@ export function Hero() {
             match it to a productive pathway, utilize what the market left behind.
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-4">
-            <PrimaryCta href="#partners">Partner With WNA</PrimaryCta>
-            <GhostCta href="#approach">Explore Our Approach</GhostCta>
+            <PrimaryCta href="#/partners">Partner With WNA</PrimaryCta>
+            <GhostCta href="#/approach">Explore Our Approach</GhostCta>
           </div>
         </motion.div>
 
@@ -172,7 +172,7 @@ const CAUSES = [
   { k: "LACK OF SUITABLE BUYERS", d: "No organized path to the next right destination." },
 ];
 
-export function Problem() {
+export function Problem({ variant = "full" }: { variant?: "full" | "teaser" }) {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 80%", "end 55%"] });
   const lineW = useTransform(scrollYProgress, [0.1, 0.7], ["0%", "100%"]);
@@ -181,7 +181,7 @@ export function Problem() {
     <section ref={ref} id="problem" aria-labelledby="problem-title" className="relative overflow-hidden bg-ink py-28 sm:py-40">
       <div className="grid-dark pointer-events-none absolute inset-0 opacity-60" aria-hidden />
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
-        <Tag index="02" label="The problem" />
+        {variant === "full" && <Tag index="01" label="The problem" />}
 
         <h2 id="problem-title" className="display mt-8 max-w-5xl text-[clamp(2.3rem,6.4vw,5.4rem)] text-cream">
           <Words text="When abundance" />
@@ -246,6 +246,7 @@ export function Problem() {
         </div>
 
         {/* Why surplus happens */}
+        {variant === "full" && (
         <div className="mt-20 sm:mt-28">
           <Reveal>
             <p className="eyebrow text-cream/45">Why surplus happens — even after a great harvest</p>
@@ -267,6 +268,7 @@ export function Problem() {
             ))}
           </div>
         </div>
+        )}
 
         {/* Surplus ≠ Waste */}
         <div className="mt-24 border-t border-cream/10 pt-16 text-center sm:mt-32 sm:pt-24">
@@ -285,6 +287,17 @@ export function Problem() {
               WNA builds that path.
             </p>
           </Reveal>
+          {variant === "teaser" && (
+            <Reveal delay={0.35}>
+              <a
+                href="#/approach"
+                className="group mt-8 inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] text-mango uppercase transition-colors hover:text-cream"
+              >
+                Explore the full story — why abundance becomes loss
+                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+              </a>
+            </Reveal>
+          )}
         </div>
       </div>
     </section>

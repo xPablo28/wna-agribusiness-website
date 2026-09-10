@@ -35,18 +35,19 @@ const IMPACT = [
   },
 ];
 
-export function Impact() {
+export function Impact({ variant = "full" }: { variant?: "full" | "home" } = {}) {
+  const home = variant === "home";
   return (
-    <section id="impact" aria-labelledby="impact-title" className="relative overflow-hidden bg-sand py-28 text-ink sm:py-40">
+    <section id="impact" aria-labelledby="impact-title" className={home ? "relative overflow-hidden bg-sand py-24 text-ink sm:py-28" : "relative overflow-hidden bg-sand py-28 text-ink sm:py-40"}>
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
-        <Tag index="10" label="Why it matters" dark />
-        <h2 id="impact-title" className="display mt-8 max-w-5xl text-[clamp(2.1rem,5.6vw,4.6rem)]">
+        {!home && <Tag index="04" label="Why it matters" dark />}
+        <h2 id="impact-title" className={home ? "display mt-2 max-w-5xl text-[clamp(1.8rem,4.6vw,3.4rem)]" : "display mt-8 max-w-5xl text-[clamp(2.1rem,5.6vw,4.6rem)]"}>
           <Words text="Surplus systems" />
           <br />
           <Words text="serve real people." delay={0.25} accentWords={["people."]} accentClass="text-wna" />
         </h2>
         <Reveal delay={0.15}>
-          <p className="mt-6 max-w-2xl text-[15.5px] leading-relaxed text-ink/65 sm:text-lg">
+          <p className={home ? "sr-only" : "mt-6 max-w-2xl text-[15.5px] leading-relaxed text-ink/65 sm:text-lg"}>
             Recovery work rarely shows up in numbers on a homepage — and we
             won't invent them. Here is who the system is built for, and what
             changes for them when surplus finally has a next step.
@@ -76,7 +77,8 @@ export function Impact() {
         </ul>
 
         <Reveal delay={0.1}>
-          <div className="mt-14 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          {!home && (
+        <div className="mt-14 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
             <div className="overflow-hidden rounded-sm">
               <img
                 src={IMG.harvestWomen}
@@ -96,13 +98,27 @@ export function Impact() {
               </p>
             </div>
           </div>
+        )}
         </Reveal>
+        {home && (
+          <Reveal delay={0.12}>
+            <div className="mt-10 flex flex-wrap items-center gap-6">
+              <a href="#/story" className="group inline-flex items-center gap-3 rounded-full bg-ink px-7 py-4 text-[13px] font-semibold tracking-[0.14em] text-cream uppercase transition-colors hover:bg-wna">
+                Meet the Founders
+                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+              </a>
+              <a href="#/products" className="font-mono text-[11px] tracking-[0.2em] text-ink/60 uppercase transition-colors hover:text-ember">
+                See what the system produces →
+              </a>
+            </div>
+          </Reveal>
+        )}
       </div>
     </section>
   );
 }
 
-/* ============================== 11 · OUR STORY / FOUNDERS ==========================
+/* ============================== OUR STORY / FOUNDERS ==========================
    The most human section on the site. Founder details are PLACEHOLDERS until
    real information is supplied in src/data.ts → FOUNDERS.                    */
 
@@ -147,7 +163,7 @@ function FounderCard({ f, i }: { f: (typeof FOUNDERS)[number]; i: number }) {
             <span className="flex flex-col items-center gap-3 text-center">
               <User className="h-10 w-10 text-cream/25" strokeWidth={1.25} />
               <span className="font-mono text-[10px] tracking-[0.22em] text-cream/40 uppercase">
-                [FOUNDER PHOTO]
+                [FOUNDER {i + 1} PHOTO]
               </span>
               <span className="font-mono text-[9px] tracking-[0.14em] text-cream/25 uppercase">
                 public/images/founders/founder-{i + 1}.jpg
@@ -188,7 +204,7 @@ export function Story() {
     <section id="story" aria-labelledby="story-title" className="relative overflow-hidden bg-ink py-28 sm:py-40">
       <div className="grid-dark pointer-events-none absolute inset-0 opacity-50" aria-hidden />
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
-        <Tag index="11" label="Our story" />
+        <Tag index="01" label="The people behind WNA" />
         <h2 id="story-title" className="display mt-8 max-w-5xl text-[clamp(2.2rem,6vw,4.8rem)] text-cream">
           <Words text="The people" />
           <br />
@@ -246,14 +262,14 @@ export function Story() {
             {anyPlaceholder && (
               <div className="mb-6 rounded-sm border border-dashed border-mango/40 bg-mango/[0.05] p-4">
                 <p className="font-mono text-[10px] leading-relaxed tracking-[0.14em] text-mango/90 uppercase">
-                  Editorial note — founder details are pending confirmation.
+                  Editorial note — WNA has three founders; details are pending confirmation.
                   Replace the placeholders in <span className="text-cream">src/data.ts → FOUNDERS</span>{" "}
                   and the photos in <span className="text-cream">public/images/founders/</span> before launch.
                   Nothing on this page is invented.
                 </p>
               </div>
             )}
-            <div className="grid gap-6 sm:grid-cols-2">
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6 sm:[&>*:last-child]:col-span-2 lg:[&>*:last-child]:col-span-1">
               {FOUNDERS.map((f, i) => (
                 <FounderCard key={i} f={f} i={i} />
               ))}

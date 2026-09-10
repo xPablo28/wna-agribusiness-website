@@ -13,7 +13,7 @@ export function BigQuestion() {
     <section aria-labelledby="question-title" className="grain relative overflow-hidden bg-[#040604] py-28 sm:py-40">
       <div className="pointer-events-none absolute top-1/2 left-1/2 h-[46vmin] w-[70vmin] -translate-x-1/2 -translate-y-1/2 rounded-full bg-mango/[0.08] blur-[110px]" aria-hidden />
       <div className="relative mx-auto max-w-[1440px] px-5 text-center sm:px-8">
-        <Tag index="03" label="The big question" className="justify-center" />
+        <Tag index="02" label="The big question" className="justify-center" />
         <h2 id="question-title" className="display mt-8 text-[clamp(2.4rem,7vw,6rem)] text-cream">
           <Words text="What if surplus" />
           <br />
@@ -76,7 +76,7 @@ const GMU = [
   },
 ];
 
-export function WhatWeDo() {
+export function WhatWeDo({ showTag = false, deepLink = false }: { showTag?: boolean; deepLink?: boolean }) {
   const [active, setActive] = useState(0);
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 70%", "end 60%"] });
@@ -86,7 +86,7 @@ export function WhatWeDo() {
     <section ref={ref} id="approach" aria-labelledby="approach-title" className="relative overflow-hidden bg-paper py-28 text-ink sm:py-40">
       <div className="grid-light pointer-events-none absolute inset-0" aria-hidden />
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8">
-        <Tag index="04" label="The WNA approach" dark />
+        {showTag && <Tag index="03" label="Grade → Match → Utilize" dark />}
 
         <h2 id="approach-title" className="display mt-8 max-w-6xl text-[clamp(2.2rem,6.4vw,5.4rem)]">
           <span className="text-ink/35">
@@ -194,12 +194,29 @@ export function WhatWeDo() {
             </p>
           </div>
         </div>
+
+        {deepLink && (
+          <Reveal delay={0.2}>
+            <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-ink/12 pt-8">
+              <p className="display-tight text-lg text-ink/80 sm:text-xl">
+                The full approach — the question, the causes, and how batches are graded.
+              </p>
+              <a
+                href="#/approach"
+                className="group inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] text-wna uppercase transition-colors hover:text-ember"
+              >
+                Explore Our Approach
+                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+              </a>
+            </div>
+          </Reveal>
+        )}
       </div>
     </section>
   );
 }
 
-/* ============================== 05 · CURRENT OPERATION — MANGO ===================== */
+/* ============================== CURRENT OPERATION — MANGO ===================== */
 
 const JOURNEY = [
   { k: "SURPLUS MANGO", d: "Cleared for productive use.", img: IMG.heroMango, alt: "Concept render — surplus mangoes awaiting their next use", tag: "SOURCE" },
@@ -239,15 +256,71 @@ function JourneyCard({ j, i }: { j: (typeof JOURNEY)[number]; i: number }) {
   );
 }
 
-export function Operation() {
+export function Operation({ variant = "full" }: { variant?: "full" | "preview" }) {
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: targetRef });
   const x = useTransform(scrollYProgress, [0, 1], ["2%", "-72%"]);
 
+  if (variant === "preview") {
+    return (
+      <section aria-labelledby="operations-teaser" className="relative bg-ink py-24 sm:py-32">
+        <div className="mx-auto max-w-[1440px] px-5 sm:px-8">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <h2 id="operations-teaser" className="display max-w-3xl text-[clamp(2rem,5.4vw,4.2rem)] text-cream">
+              <Words text="The mango line." />{" "}
+              <Words text="Run end to end." delay={0.2} accentWords={["end."]} />
+            </h2>
+            <StatusBadge status="CURRENT" />
+          </div>
+          <Reveal delay={0.1}>
+            <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-cream/60 sm:text-base">
+              A working preview of the current operation — the same six stages,
+              every batch, every time.
+            </p>
+          </Reveal>
+          <ol className="mt-12 grid gap-px overflow-hidden rounded-sm border border-cream/12 bg-cream/12 sm:grid-cols-2 lg:grid-cols-3">
+            {JOURNEY.map((j, i) => (
+              <motion.li
+                key={j.k}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.6, ease: EASE, delay: i * 0.05 }}
+                className="relative flex items-center gap-4 bg-ink p-5"
+              >
+                <span className="display-tight w-8 shrink-0 text-lg text-mango/70">0{i + 1}</span>
+                <div>
+                  <p className="display-tight text-[15.5px] text-cream">{j.k}</p>
+                  <p className="mt-1 text-[12.5px] leading-snug text-cream/50">{j.d}</p>
+                </div>
+                {i < JOURNEY.length - 1 && (
+                  <span className="absolute top-1/2 right-4 hidden -translate-y-1/2 text-mango/50 sm:block" aria-hidden>→</span>
+                )}
+              </motion.li>
+            ))}
+          </ol>
+          <Reveal delay={0.15}>
+            <div className="mt-10 flex flex-wrap items-center gap-6">
+              <a
+                href="#/operations"
+                className="group inline-flex items-center gap-3 rounded-full bg-mango px-7 py-4 text-[13px] font-semibold tracking-[0.14em] text-ink uppercase transition-colors duration-300 hover:bg-cream"
+              >
+                View Operations
+                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+              </a>
+              <a href="#/products" className="font-mono text-[11px] tracking-[0.2em] text-cream/55 uppercase transition-colors hover:text-mango">
+                See what comes out →
+              </a>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section id="operations" aria-labelledby="operations-title" className="relative bg-ink">
-      <div className="mx-auto max-w-[1440px] px-5 pt-28 sm:px-8 sm:pt-40">
-        <Tag index="05" label="The current operation" />
+    <section id="operations-journey" aria-labelledby="operations-title" className="relative bg-ink">
+      <div className="mx-auto max-w-[1440px] px-5 pt-10 sm:px-8 sm:pt-14">
         <div className="mt-8 flex flex-wrap items-end justify-between gap-6">
           <h2 id="operations-title" className="display max-w-4xl text-[clamp(2.2rem,6.4vw,5.4rem)] text-cream">
             <Words text="The mango line." />{" "}
@@ -306,7 +379,7 @@ export function Operation() {
             ))}
             <div className="flex w-[30vw] shrink-0 flex-col justify-center">
               <p className="display-tight text-3xl text-cream/90">From surplus<br />to standard.</p>
-              <a href="#product" className="mt-6 inline-flex items-center gap-2 text-[13px] font-semibold tracking-[0.14em] text-mango uppercase">
+              <a href="#/products" className="mt-6 inline-flex items-center gap-2 text-[13px] font-semibold tracking-[0.14em] text-mango uppercase">
                 See the product <ArrowUpRight className="h-4 w-4" />
               </a>
               <p className="mt-8 max-w-[220px] font-mono text-[9.5px] leading-relaxed tracking-[0.12em] text-cream/35 uppercase">

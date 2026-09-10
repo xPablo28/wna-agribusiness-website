@@ -41,17 +41,20 @@ export const COMPANY = {
 
 export const isPlaceholder = (v: string) => v.trim() === "" || /^\[.+\]$/.test(v.trim());
 
-/* ----------------------------- Navigation ----------------------------- */
+/* ----------------------------- Navigation -----------------------------
+   Pages are hash-routed (#/approach etc.) — see src/router.tsx. */
 
 export const NAV_LINKS = [
-  { label: "Our Approach", href: "#approach" },
-  { label: "Operations", href: "#operations" },
-  { label: "Products", href: "#product" },
-  { label: "Our Story", href: "#story" },
-  { label: "Partners", href: "#partners" },
+  { label: "Home", path: "/" as const },
+  { label: "Our Approach", path: "/approach" as const },
+  { label: "Operations", path: "/operations" as const },
+  { label: "Products", path: "/products" as const },
+  { label: "Our Story", path: "/story" as const },
+  { label: "Partners", path: "/partners" as const },
 ] as const;
 
 export const CTA_LABEL = "Partner With WNA";
+export const CTA_PATH = "/partners" as const;
 
 /* ------------------------------- Images ------------------------------- */
 
@@ -97,15 +100,15 @@ export const BROADER_OPPORTUNITY = [
 ];
 
 /* --------------------------------- Founders --------------------------------
-   PLACEHOLDERS ONLY — do not publish until real information is supplied.
-   Add or remove entries freely; the section adapts to the array length.
+   WNA has THREE founders. PLACEHOLDERS ONLY — do not publish until real
+   information is supplied. Keep exactly three entries.
 
      photo: set ONLY after the real file exists, e.g.
             save the photograph at public/images/founders/ada.jpg
             and write photo: "/images/founders/ada.jpg"
             An empty photo (or a broken path) keeps the designed
-            "[FOUNDER PHOTO]" slot visible — never a broken image.
-     quote: optional — leave "[OPTIONAL FOUNDER QUOTE]" to hide. */
+            "[FOUNDER N PHOTO]" slot visible — never a broken image.
+     quote: optional — leave the bracket placeholder to hide. */
 
 export interface Founder {
   photo: string;
@@ -118,16 +121,23 @@ export interface Founder {
 export const FOUNDERS: Founder[] = [
   {
     photo: "",
-    name: "[FOUNDER NAME]",
-    role: "[FOUNDER ROLE]",
-    bio: "[FOUNDER BIO — one short paragraph: what they do, and what they care about at WNA.]",
-    quote: "[OPTIONAL FOUNDER QUOTE]",
+    name: "[FOUNDER 1 NAME]",
+    role: "[FOUNDER 1 ROLE]",
+    bio: "[FOUNDER 1 BIO — one short paragraph: what they do, and what they care about at WNA.]",
+    quote: "[FOUNDER 1 QUOTE — optional]",
   },
   {
     photo: "",
-    name: "[FOUNDER NAME]",
-    role: "[FOUNDER ROLE]",
-    bio: "[FOUNDER BIO — one short paragraph: what they do, and what they care about at WNA.]",
-    quote: "[OPTIONAL FOUNDER QUOTE]",
+    name: "[FOUNDER 2 NAME]",
+    role: "[FOUNDER 2 ROLE]",
+    bio: "[FOUNDER 2 BIO — one short paragraph: what they do, and what they care about at WNA.]",
+    quote: "[FOUNDER 2 QUOTE — optional]",
+  },
+  {
+    photo: "",
+    name: "[FOUNDER 3 NAME]",
+    role: "[FOUNDER 3 ROLE]",
+    bio: "[FOUNDER 3 BIO — one short paragraph: what they do, and what they care about at WNA.]",
+    quote: "[FOUNDER 3 QUOTE — optional]",
   },
 ];
